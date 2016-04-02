@@ -31,23 +31,27 @@
           <h3>
 <a id="summary" class="anchor" href="#summary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Summary</h3>
 
+<p>I am going to design and implement an Elastic Webserver Platform using AWS that allows you to specify scheduling and scaling policies programmatically utilizing characteristics of the incoming requests and knowledge of the type of workload. I will them attempt to beet Amazon's Elastic Load Balancer(ELB)[1] and Auto Scale Groups[2] performance at the same cost/hour for a variety of workload/cost combinations.</p>
+
 <h3>
 <a id="background" class="anchor" href="#background" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Background</h3>
 
-<h3>
-<a id="challenge" class="anchor" href="#challenge" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Challenge</h3>
+<p>Amazon offers an existing solution to create an Elastic Webserver on AWS using the Elastic Load Balancer and Auto Scale Group combination however this approach has several limitations for real workloads which I look to address with my solution. Some of the limitations are:-</p>
 
-<h3>
-<a id="resources" class="anchor" href="#resources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Resources</h3>
-
-<h3>
-<a id="goals-and-deliverables" class="anchor" href="#goals-and-deliverables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Goals and Deliverables</h3>
-
-<h3>
-<a id="platform-choice" class="anchor" href="#platform-choice" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Platform Choice</h3>
-
-<h3>
-<a id="schedule" class="anchor" href="#schedule" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Schedule</h3>
+<ul>
+<li>The ELB uses a naive Round Robin Load Balancing approach to balance incoming requests among various servers however this approach is inefficient when the workload associated with each request is imbalanced which is usually the case for real world loads.</li>
+<li>Auto Scale Group can scale based upon only a limited set of Cloud Watch Metrics[3].</li>
+<li>Auto Scale Group only allows Homogeneous scaling out of resources. We can achieve beter performance for the same cost if we scale out heterogeneously utilizing the knowledge of the type of workload which has increased(For e.g. launcing a C series compute optimized instance may be more cost effective than launching multiple smaller instances).
+### Challenge
+### Resources
+### Goals and Deliverables
+### Platform Choice
+### Schedule
+### References
+1.
+2.
+3.</li>
+</ul>
         </section>
 
         <aside id="sidebar">
