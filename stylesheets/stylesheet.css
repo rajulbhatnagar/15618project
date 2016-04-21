@@ -770,6 +770,44 @@ footer a:hover {
 * html .clearfix {height: 1%;}
 .clearfix {display: block;}
 
+.menu {
+    list-style-type: none;
+    margin: 0;
+	margin-left:-40px;
+	padding:0px;
+}
+.menu > li {
+    display: table-cell;
+    vertical-align: middle;
+	padding-left:10px;
+}
+
+.menu > li > a {
+    display: block;
+    line-height: 1;
+    padding: 0.7rem 1rem;
+	font-weight:bold;
+}
+.menu input, .menu a, .menu button {
+    margin-bottom: 0;
+}
+.menu > li > a img, .menu > li > a i {
+    vertical-align: middle;
+}
+.menu > li > a i + span, .menu > li > a img + span {
+    vertical-align: middle;
+}
+.menu > li > a img, .menu > li > a i {
+    display: inline-block;
+    margin-right: 0.25rem;
+}
+.menu > li {
+    display: table-cell;
+}
+.menu.vertical > li {
+    display: block;
+}
+
 /* #Media Queries
 ================================================== */
 

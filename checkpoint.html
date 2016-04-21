@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Elastic Webserver on AWS by rajulbhatnagar</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Elastic Webserver on AWS</h1>
+        <h2>15618 Final Project</h2>
+        <a href="https://github.com/rajulbhatnagar/15618project" class="button"><small>View project on</small> GitHub</a>
+		
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+		<ul class="menu">
+		  <li><a href="index.html">Project Proposal</a></li>
+		  <li><a href="#">Project Checkpint</a></li>
+		</ul>
+          <h3>
+<a id="summary" class="anchor" href="#summary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>State of The Project</h3>
+
+<p>Its a little slower than anticipated and I am slightly behind schedule however its nothing that cannot be pulled back.</p>
+<h3>
+<a id="background" class="anchor" href="#background" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Things That I am Happy About</h3>
+
+<ul>
+<li>The basic load balancing framework was implemented allowing to blugin differant load balancing stratergies.</li>
+<li>Almost all the work dealing woth the AWS Java API relating to spanning and killing of new instances is done. So in essense
+I have a basic Elastic Web Server which can do basic load balancing and scaling up and down.</li>
+</ul>
+
+<h3>
+<a id="the-challenge" class="anchor" href="#the-challenge" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Biggest Challenge</h3>
+<p>Deciding on how to generate traces and jobs so that they bring out the advantages of 
+a scheduling and scaling stratergy based on the job at hand while still being 
+representative of real world traces hitting the web server. It would be easy to
+make traces with heavily skewed jobs whoch would make the round robin load balancing
+of the ELB look bad but they may not necessearily be representative of real world traffic
+hitting the webservers.
+</p>
+<p>
+I believe that the following types of requests broadly summarise the type of
+requests that arrive at a modern webservers
+</p>
+<ul>
+<li>Latency Sensative requests. These are requests like static web content where the
+delays in serving the requests can lead to a bad user experience and make your site
+appear slow.</li>
+<li>Requests that require a lot of computation. There are some requests that require a lot of
+CPU computation and although they are not super latency sensative if they get queued up
+at the Worker they can cause other requests to queue up if scheduled correctly.</li>
+<li>Requests that are bandwith bound and will cause severly increased latencies if they
+need to page to disk.</li>
+</ul>
+
+<h4>
+<a id="resources" class="anchor" href="#resources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Generating traces</h4>
+<p>The majority of the requests will be of the first type for most web tasks with type 2 and 3 requests
+interleaved in.</p>
+<p>I plan to create four types of trace sets</p>
+<li>Majority type 1 requests and a few type 2 and type 3 requests.</li>
+<li>Majority type 2 reqeusts.</li>
+<li>Majority type 3 reqeusts.</li>
+<li>A mix of all three types of requests.</li>
+
+<h3>
+<a id="goals-and-deliverables" class="anchor" href="#goals-and-deliverables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Evaluation Methodology</h3>
+<p>Ill generate baseline time for all the computations done on a unloaded server
+and then analyze the web server performance. I plan to then be able to demnstrate
+visually the impact that the scheduling and scaling stratergy has on 
+performance.</p>
+
+
+<h3>
+<a id="platform-choice" class="anchor" href="#platform-choice" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Updated Timeline</h3>
+
+
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/rajulbhatnagar/15618project/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/rajulbhatnagar/15618project/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/rajulbhatnagar/15618project"></a> is maintained by <a href="https://github.com/rajulbhatnagar">rajulbhatnagar</a>.</p>
+
+         </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
