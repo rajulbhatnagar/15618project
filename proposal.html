@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Elastic Webserver on AWS by Rajul Bhatnagar</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Elastic Webserver on AWS</h1>
+        <h2>15618 Final Project</h2>
+        <a href="https://github.com/rajulbhatnagar/15618project" class="button"><small>View project on</small> GitHub</a>
+		
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+		<ul class="menu">
+		  <li><a href="index.html">Final Report</a></li>
+		  <li><a href="#">Project Proposal</a></li>
+		  <li><a href="checkpoint.html">Project Checkpint</a></li>
+		</ul>
+          <h3>
+<a id="summary" class="anchor" href="#summary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Summary</h3>
+
+<p>I am going to design and implement an Elastic Webserver Platform using AWS that allows you to specify scheduling and scaling policies programmatically utilizing characteristics of the incoming requests and knowledge of the type of workload. I will them attempt to beat Amazon's Elastic Load Balancer(ELB)[1] and Auto Scale Groups[2] performance at the same cost/hour for a variety of workload/cost combinations.</p>
+
+<h3>
+<a id="background" class="anchor" href="#background" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Background</h3>
+
+<p>Amazon offers an existing solution to create an Elastic Webserver on AWS using the Elastic Load Balancer and Auto Scale Group combination which fulfill some of the requirements of an Elastic Webserver like Availability and Elasticity however this approach has several limitations for real workloads which I look to address with my solution. Some of the limitations are:-</p>
+
+<ul>
+<li>The ELB uses a naive Round Robin Load Balancing approach to balance incoming requests among various servers however this approach is inefficient when the workload associated with each request is imbalanced which is usually the case for real world loads.</li>
+<li>Auto Scale Group can scale based upon only a limited set of Cloud Watch Metrics[3].</li>
+<li>Auto Scale Group only allows Homogeneous scaling out of resources. We can achieve better performance for the same cost if we scale out heterogeneously utilizing the knowledge of the type of workload which has increased(For e.g. launching a C series compute optimized instance may be more cost effective than launching multiple smaller instances).</li>
+</ul>
+
+<h3>
+<a id="the-challenge" class="anchor" href="#the-challenge" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The Challenge</h3>
+
+<ul>
+<li>An Elastic Webserver must provide Availability and Elasticity. I would need to keep track of worker node health to mark workers as dead or alive. Also the load balancer is a bottleneck in the system and there is no way to scale a EC2 instance vertically on AWS in real-time. I will have to figure out a solution for this.</li>
+<li>Beating the performance at lower cost points will be difficult as the ELB is cheap at $0.025 an hour and a additional $0.8 for every 100GB through the load balancer whereas I would have to run the load balancer on an EC2 instance and even reasonably low power instances are much more expensive than the ELB. I will have to make up the cost in scheduling and scaling efficiency.</li>
+<li>I may face several hurdles along the way due to limitations of the AWS API and would have to find workarounds for those.</li>
+<li>Maintaining worker state if multiple load balancers are deployed to mitigate a SPOF.</li>
+</ul>
+
+<h3>
+<a id="resources" class="anchor" href="#resources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Resources</h3>
+
+<p>The entire platform will be built on top of Amazon EC2 and will be built using AWS Java API. I plan on using the Undertow Web Framework[4] for the underlying Load Balancers and Web Server's HTTP components. I will look into using JMeter[5] as the load generator.</p>
+
+<h3>
+<a id="goals-and-deliverables" class="anchor" href="#goals-and-deliverables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Goals and Deliverables</h3>
+
+<h4>
+<a id="must-haves" class="anchor" href="#must-haves" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Must Haves</h4>
+
+<ul>
+<li>Framework for scheduling and scaling based on desired algorithm with access to different worker state metrics. </li>
+<li>Horizontal scaling and Fault tolerance of Worker nodes</li>
+<li>Cost/Performance ratio competitive with ELB and ASG for the tested configurations with the implemented scheduling algorithms.</li>
+<li>Detailed analysis of the results explaining/demonstrating how work distribution and heterogeneity helped in achieving the performance goals.</li>
+</ul>
+
+<h4>
+<a id="should-haves" class="anchor" href="#should-haves" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Should Haves</h4>
+
+<ul>
+<li>Vertical scaling of the Load Balancer.</li>
+<li>Easy to use configuration file to get setup and implement a solution based on the framework on AWS.</li>
+</ul>
+
+<h3>
+<a id="platform-choice" class="anchor" href="#platform-choice" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Platform Choice</h3>
+
+<p>I plan to use Java and use Java Web Framework for this as the AWS Java SDK is the most feature rich and stable API and Java is a popular language for Web Development and unlike PHP allows to explore the underlying parallelism. Amazon AWS is the cloud platform of choice for a majority of Salable Web Apps which require Platform as a Service and hence I chose AWS.</p>
+
+<h3>
+<a id="schedule" class="anchor" href="#schedule" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Schedule</h3>
+
+<table>
+<thead>
+<tr>
+<th align="center">Time</th>
+<th align="left">Proposed Schedule</th>
+<th align="left">Tasks Accomplished</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Week April 2-8</td>
+<td align="left">++Decide on all the libraries/frameworks to be used and read about them <br> ++Build a basic Proxy with fixed set of Workers along with porting various workloads from assignment and writing more if need arises.</td>
+<td align="left">++Read about JMeter and Undertow.<br>++Read about AWS Java SDK<br>++Built basic Undertow proxy</td>
+</tr>
+<tr>
+<td align="center">Week April 9-15</td>
+<td align="left">++Build basic Autoscaling API on top of AWS and get have the API get access to all the worker metrics.<br>++Build API to perform health checks on workers and mark/unmark unhealthy/healthy instances.<br> ++Build various ELB and ASG configurations and run tests to get the baseline performance/cost comparisons.</td>
+<td align="left">++Build Basic Java API on top of AWS for scaling and basic load balancing<br>++Thought about types of Traces</td>
+</tr>
+<tr>
+<td align="center">Week April 16-22</td>
+<td align="left">++Work on scheduling and scaling strategies and optimize performance.</td>
+<td align="left">++Worked on Traces</td>
+</tr>
+<tr>
+<td align="center">Week April 23-29</td>
+<td align="left">++Write additional test traces and workloads.<br>++Further optimize performance</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">Week April 30-Competition</td>
+<td align="left">++Finish any pending work and additional features.<br>++Finish Final write-up and Presentation.</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References</h3>
+
+<ol>
+<li><a href="https://aws.amazon.com/elasticloadbalancing/">Elastic Load Balancer</a></li>
+<li><a href="https://aws.amazon.com/autoscaling/">Auto Scale Group</a></li>
+<li><a href="https://aws.amazon.com/cloudwatch/">Amazon Cloudwatch</a></li>
+<li><a href="http://undertow.io/">Undertow</a></li>
+<li><a href="http://jmeter.apache.org/">jMeter</a></li>
+</ol>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/rajulbhatnagar/15618project/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/rajulbhatnagar/15618project/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/rajulbhatnagar/15618project"></a> is maintained by <a href="https://github.com/rajulbhatnagar">rajulbhatnagar</a>.</p>
+
+         </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
