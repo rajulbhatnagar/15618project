@@ -35,46 +35,68 @@
 		  <li><a href="checkpoint.html">Project Checkpint</a></li>
 		</ul>
 		
-		<h1>Coming Soon</h1>
-		<!--
+		
           <h3>
 <a id="summary" class="anchor" href="#summary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Summary</h3>
 
-<p>I am going to design and implement an Elastic Webserver Platform using AWS that allows you to specify scheduling and scaling policies programmatically utilizing characteristics of the incoming requests and knowledge of the type of workload. I will them attempt to beat Amazon's Elastic Load Balancer(ELB)[1] and Auto Scale Groups[2] performance at the same cost/hour for a variety of workload/cost combinations.</p>
+<p>I have implemented an Elastic Web Server on Amazon AWS which supports a hetrogenious server configuration and also allows hetrogenious scaling of differant server
+groups independently depending on the type of load. I then evaluated this against baseline round robin work distribution on four differant traces having differant combinations
+of Compute and I/O characteristics and was able to demonstrate the reduced response latency of using this approach on a hetrogenious workload which is the characteristic of 
+most real world web workloads.</p>
 
 <h3>
 <a id="background" class="anchor" href="#background" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Background</h3>
 
-<p>Amazon offers an existing solution to create an Elastic Webserver on AWS using the Elastic Load Balancer and Auto Scale Group combination which fulfill some of the requirements of an Elastic Webserver like Availability and Elasticity however this approach has several limitations for real workloads which I look to address with my solution. Some of the limitations are:-</p>
+<p>Amazon offers an existing solution to create an Elastic Webserver on AWS using the Elastic Load Balancer and Auto Scale Group combination which fulfill some of the requirements of an Elastic Webserver like Availability and Elasticity however this approach has several limitations for real workloads which I look to address with my solution. 
+I primarily addressed two limitations in ELB + ASG combination:-</p>
 
 <ul>
-<li>The ELB uses a naive Round Robin Load Balancing approach to balance incoming requests among various servers however this approach is inefficient when the workload associated with each request is imbalanced which is usually the case for real world loads.</li>
-<li>Auto Scale Group can scale based upon only a limited set of Cloud Watch Metrics[3].</li>
-<li>Auto Scale Group only allows Homogeneous scaling out of resources. We can achieve better performance for the same cost if we scale out heterogeneously utilizing the knowledge of the type of workload which has increased(For e.g. launching a C series compute optimized instance may be more cost effective than launching multiple smaller instances).</li>
+<li>The ELB uses a naive Round Robin Load Balancing approach to balance incoming requests among various servers however this approach is 
+inefficient when the workload associated with each request is imbalanced(hetrogenious) which is usually the case for real world loads. My system allows you to plug in 
+you custom load balancing scheme depending on your requirements.</li>
+<li>Auto Scale Group only allows Homogeneous scaling out of resources. We can achieve better performance for the same cost if we scale out heterogeneously utilizing the knowledge of the type of workload which has 
+increased(For e.g. launching a C series compute optimized instance may be more cost effective than launching M series instances).</li>
 </ul>
 
 <h3>
-<a id="the-challenge" class="anchor" href="#the-challenge" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Approach</h3>
+<a id="the-approach" class="anchor" href="#the-approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Approach</h3>
 
-
+<p>The basic architecture of my elastic webserver consists of a load balancer which runs on a EC2 instance in front of a cluster of differant types of servers.<p>
+<p>TODO Architecture Image</p>
+<p>You specify your backend instances connected to the load balancer through a json configuration file <a href="images/config.json">Example file till I create images explaining the schema</a></p>
+<p>The request arrives at the load balancer and then the server selection policy determines which cluster to use and which server to use in that cluster and sends the request to 
+that server and the response back to the client. For the generation of traces I used four types of requests three of then were ported to java from the 15418 assignment 4[].</p>
+<h5>Computationally Expensive Requests</h5>
+<ul>
+<li><b>418wisdom:</b>This request invokes the "418 oracle", a highly sophisticated, but secret, 
+algorithm that accepts as input an integer and uses it to generate a response that conveys great wisdom about how to succeed in 418. 
+Given the sophistication of this algorithm, it is highly CPU intensive. It requires very little input data as so its footprint and 
+bandwidth requirements are negligible. The algorithm does approximately the same amount of work for every invocation, so running times will be argument independent.</li>
+<li><b>countprimes:</b>This request accepts an integer argument n and returns the number of prime numbers between 0 and n. 
+The task has similar workload characteristics as 418wisdom. It is CPU intensive with little to no bandwidth or memory 
+footprint requirements. However unlike 418wisdom, the runtime for countprimes requests is variable depending on the value of n.
+Smaller values of n result in cheaper requests.</li>
+</ul>
+<h5>Latency Critical Requests</h5>
+<ul>
+<li><b>tellmenow:</b>This request is an automatic "office hours" service for Assignment 4. Students want help, and they want it now, so the 
+there is a very strict response latency requirement for tellmenow requests. Tellmenow requests are very cheap, requiring only a few CPU ops to process.</li>
+</ul>
+<h5>I/O Intensive Requests</h5>
+<ul>
+<li><b>memorykiller:</b>This request takes a image or video file name as input. If the requested resource is found in the inmemory local memcached[] then it is
+loaded from memory otherwise the resource is read from disk.The request is served much faster if we get a cache hit. There is no CPU requirements apart from that
+required by memcached to lookup the resource</li>
+</ul>
 
 <h3>
 <a id="resources" class="anchor" href="#resources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Results</h3>
-
-<p>The entire platform will be built on top of Amazon EC2 and will be built using AWS Java API. I plan on using the Undertow Web Framework[4] for the underlying Load Balancers and Web Server's HTTP components. I will look into using JMeter[5] as the load generator.</p>
-
+<p>Coming Soon</p>
 
 <h3>
 <a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References</h3>
 
-<ol>
-<li><a href="https://aws.amazon.com/elasticloadbalancing/">Elastic Load Balancer</a></li>
-<li><a href="https://aws.amazon.com/autoscaling/">Auto Scale Group</a></li>
-<li><a href="https://aws.amazon.com/cloudwatch/">Amazon Cloudwatch</a></li>
-<li><a href="http://undertow.io/">Undertow</a></li>
-<li><a href="http://jmeter.apache.org/">jMeter</a></li>
-</ol>
-!-->
+<p>Coming Soon</p>
         </section>
 
         <aside id="sidebar">
