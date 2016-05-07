@@ -57,6 +57,7 @@ you custom load balancing scheme depending on your requirements.</li>
 <li>Auto Scale Group only allows Homogeneous scaling out of resources. We can achieve better performance for the same cost if we scale out heterogeneously utilizing the knowledge of the type of workload which has 
 increased(For e.g. launching a C series compute optimized instance may be more cost effective than launching M series instances).</li>
 </ul>
+<p>This allowed me to get lower latencies at the same AWS cost/hr of running the server.</p>
 
 <h3>
 <a id="the-approach" class="anchor" href="#the-approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Approach</h3>
@@ -65,7 +66,8 @@ increased(For e.g. launching a C series compute optimized instance may be more c
 <p>TODO Architecture Image</p>
 <p>You specify your backend instances connected to the load balancer through a json configuration file <a href="images/config.json">Example file till I create images explaining the schema</a></p>
 <p>The request arrives at the load balancer and then the server selection policy determines which cluster to use and which server to use in that cluster and sends the request to 
-that server and the response back to the client. For the generation of traces I used four types of requests three of then were ported to java from the 15418 assignment 4[].</p>
+that server and the response back to the client. For the generation of traces I used four types of requests three of them were ported to java from the 15418 assignment 4[] and I created an
+additional I/O intensive request.</p>
 <h5>Computationally Expensive Requests</h5>
 <ul>
 <li><b>418wisdom:</b>This request invokes the "418 oracle", a highly sophisticated, but secret, 
@@ -86,12 +88,72 @@ there is a very strict response latency requirement for tellmenow requests. Tell
 <ul>
 <li><b>memorykiller:</b>This request takes a image or video file name as input. If the requested resource is found in the inmemory local memcached[] then it is
 loaded from memory otherwise the resource is read from disk.The request is served much faster if we get a cache hit. There is no CPU requirements apart from that
-required by memcached to lookup the resource</li>
+required by memcached service to fetch the resource. This request simulates the real world case of serving static resources.</li>
 </ul>
 
 <h3>
 <a id="resources" class="anchor" href="#resources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Results</h3>
-<p>Coming Soon</p>
+
+<h4>Trace Characteristics</h4>
+<p>To evaluate the system I created four differant traces having differant characteristics:-</p>
+<ul>
+<li>
+<b>Trace 1:</b> is a mix of I/O and compute.<br>
+<table>
+<thead>
+<tr><th>Request Type</th><th>Quantity</th></tr>
+</thead>
+<tbody>
+<tr><td>memorykiller</td><td>2600</td></tr>
+<tr><td>418wisdom</td><td>1000</td></tr>
+<tr><td>computeprimes</td><td>800</td></tr>
+</tbody>
+</table>
+<br>
+</li>
+<li>
+<b>Trace 2:</b> is a mix of I/O and compute along with requests having strict latency requirement.<br>
+<table>
+<thead>
+<tr><th>Request Type</th><th>Quantity</th></tr>
+</thead>
+<tbody>
+<tr><td>memorykiller</td><td>3600</td></tr>
+<tr><td>tellmenow</td><td>2000</td></tr>
+<tr><td>computeprimes</td><td>1000</td></tr>
+</tbody>
+</table>
+<br>
+</li>
+<li>
+<b>Trace 3:</b> is a mix of compute and I/O.<br>
+<table>
+<thead>
+<tr><th>Request Type</th><th>Quantity</th></tr>
+</thead>
+<tbody>
+<tr><td>tellmenow</td><td>300</td></tr>
+<tr><td>418wisdom</td><td>1900</td></tr>
+</tbody>
+</table>
+</li>
+<li>
+<b>Trace 4:</b> is a mix of I/O and compute.<br>
+<table>
+<thead>
+<tr><th>Request Type</th><th>Quantity</th></tr>
+</thead>
+<tbody>
+<tr><td>tellmenow</td><td>~1000</td></tr>
+<tr><td>418wisdom</td><td>~1000</td></tr>
+<tr><td>computeprimes</td><td>~1000</td></tr>
+</tbody>
+</table>
+<br>
+</li>
+</ul>
+<p>TODO:Add more information abt trace characteristics</p>
+<p>More Coming Soon</p>
 
 <h3>
 <a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References</h3>

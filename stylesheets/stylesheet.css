@@ -808,6 +808,10 @@ footer a:hover {
     display: block;
 }
 
+h5:before {
+	margin-left:0px;
+}
+
 /* #Media Queries
 ================================================== */
 
