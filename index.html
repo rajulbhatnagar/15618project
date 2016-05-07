@@ -13,13 +13,13 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title>Elastic Webserver on AWS by Rajul Bhatnagar</title>
+    <title>Heterogeneous Elastic Webserver on AWS by Rajul Bhatnagar</title>
   </head>
 
   <body>
     <header>
       <div class="inner">
-        <h1>Elastic Webserver on AWS</h1>
+        <h1>Heterogeneous Elastic Webserver on AWS</h1>
         <h2>15618 Final Project</h2>
         <a href="https://github.com/rajulbhatnagar/15618project" class="button"><small>View project on</small> GitHub</a>
 		
@@ -39,9 +39,9 @@
           <h3>
 <a id="summary" class="anchor" href="#summary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Summary</h3>
 
-<p>I have implemented an Elastic Web Server on Amazon AWS which supports a hetrogenious server configuration and also allows hetrogenious scaling of differant server
+<p>I have implemented an Elastic Web Server on Amazon AWS which supports a heterogeneous server configuration and also allows heterogeneous scaling of differant server
 groups independently depending on the type of load. I then evaluated this against baseline round robin work distribution on four differant traces having differant combinations
-of Compute and I/O characteristics and was able to demonstrate the reduced response latency of using this approach on a hetrogenious workload which is the characteristic of 
+of Compute and I/O characteristics and was able to demonstrate the reduced response latency of using this approach on a heterogeneous workload which is the characteristic of 
 most real world web workloads.</p>
 
 <h3>
@@ -52,9 +52,9 @@ I primarily addressed two limitations in ELB + ASG combination:-</p>
 
 <ul>
 <li>The ELB uses a naive Round Robin Load Balancing approach to balance incoming requests among various servers however this approach is 
-inefficient when the workload associated with each request is imbalanced(hetrogenious) which is usually the case for real world loads. My system allows you to plug in 
+inefficient when the workload associated with each request is imbalanced(heterogeneous) which is usually the case for real world loads. My system allows you to plug in 
 you custom load balancing scheme depending on your requirements.</li>
-<li>Auto Scale Group only allows Homogeneous scaling out of resources. We can achieve better performance for the same cost if we scale out heterogeneously utilizing the knowledge of the type of workload which has 
+<li>Auto Scale Group only allows Homogeneous scaling out of resources. We can achieve better performance for the same cost if we scale out []ly utilizing the knowledge of the type of workload which has 
 increased(For e.g. launching a C series compute optimized instance may be more cost effective than launching M series instances).</li>
 </ul>
 <p>This allowed me to get lower latencies at the same AWS cost/hr of running the server.</p>
