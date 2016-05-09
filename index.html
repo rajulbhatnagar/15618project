@@ -262,6 +262,12 @@ by all instances normalized to 1hr for each trace. For all the tests using my Lo
 </tr>
 </tbody>
 </table>
+<h6>*Note</h6>
+<ul>
+<li>There was a requirement for all the configurations to be under 1.6$/hr normalize cost</li>
+<li>Results for Round Robin with Scaling are not included because even with 1.5x number of instances available
+and more cost than the limit the results were much worse than heterogeneous system without scaling</li>
+</ul>
 <h6>Scaling Policy</h6>
 <p><b>c4.large:</b>For this instance pool we have two conditions to scale up. If Average CPUUtilisation for 20 second period is between 30-60 add four instances
 and if between 60-100 add another four instances.We can merge these two into one and it produces the same result. For scale down policy if 
@@ -387,10 +393,11 @@ We can see in the heterogeneous configuration with and without scaling these req
 </div>
 <h4>Trace 3</h4>
 <div>
-<p>Here we again see that the latency critical requests are getting queued up in the homogeneus
-configuration due to the workers being overwhelmed by compute. Also we can see scaling helping with 
-the spike in request latency when the arrival rate becomes very high.Also the dedicated node to handle
-latency critical but no compute requests ensures that thoserequests never get backed up.</p>
+<p>Here we again see that the latency critical requests are getting queued up in the homogeneous
+configuration due to the workers being overwhelmed by compute.Even the very few tellmeknow reqeusts cant
+be processed and get backedup. Also we can see scaling helping with the spike in request latency when the 
+arrival rate becomes very high.Also the dedicated node to handle latency critical but no compute requests 
+is critical in ensuring that those requests never get backed up.</p>
 <img src="images/results/trace3/input1.jpg">
 <img src="images/results/trace3/response1.jpg">
 <img src="images/results/trace3/input2.jpg">
@@ -410,7 +417,9 @@ rate increase but there will be small spikes during scaling activity.</p>
 <img src="images/results/trace4/input3.jpg">
 <img src="images/results/trace4/response3.jpg">
 </div>
-<h5>Takeaways</h5>
+<h4>Result Summary</h4>
+<img src="images/summary.jpg">
+<h3>Takeaways</h3>
 <p>The above traces help in demonstrating a lot of interesting insights. Some of the key takeaways are:-</p>
 <ul>
 <li>
