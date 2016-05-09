@@ -64,9 +64,10 @@ increased(For e.g. launching a C series compute optimized instance may be more c
 
 <p>The basic architecture of my elastic webserver consists of a load balancer which runs on a EC2 instance in front of a cluster of differant types of servers.<p>
 <p>TODO Architecture Image</p>
-<p>You specify your backend instances connected to the load balancer through a json configuration file <a href="images/config.json">Example file till I create images explaining the schema</a></p>
+<p>You specify your backend instances connected to the load balancer through a json configuration file <a href="images/config.json">Example file till I create images explaining the schema</a>.
+The Load Balancer is built on top of the Undertow Web Framework[] and implements the Undertow Proxy Client[] interface.</p>
 <p>The request arrives at the load balancer and then the server selection policy determines which cluster to use and which server to use in that cluster and sends the request to 
-that server and the response back to the client. For the generation of traces I used four types of requests three of them were ported to java from the 15418 assignment 4[] and I created an
+that server and the response back to the client. To evaluate the system I created traces containing four types of requests three of them were ported to java from the 15418 assignment 4[] and I created an
 additional I/O intensive request.</p>
 <h5>Computationally Expensive Requests</h5>
 <ul>
@@ -93,7 +94,127 @@ required by memcached service to fetch the resource. This request simulates the 
 
 <h3>
 <a id="resources" class="anchor" href="#resources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Results</h3>
-
+<h4>System Configurations</h4>
+<p>Given below are the three configurations that are compaired. For all three configurations needed to satisfy the normalized
+on demand running cost for Server + Load Balancer needed to be under 1.6$/hr on AWS. This is calculated as the average number of seconds run 
+by all instances normalized to 1hr for each trace. For all the tests using my Load Balancer the Load Balancer was run on a C4.large instance.</p>
+<ul>
+<li><b>Homogeneous Server Pool with Round Robin Scheduling</b> of all requests. This is the baseline system behind the AWS Elastic Load Balancer.<br>
+<table>
+<thead>
+<tr>
+<th>Instance Type</th>
+<th>Quantity</th>
+<th>vCPU</th>
+<th>ECU</th>
+<th>Memory</th>
+<th>AWS Hourly Cost($/hr)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>m4.large</td>
+<td>12</td>
+<td>2</td>
+<td>6.5</td>
+<td>8</td>
+<td>0.12</td>
+</tr>
+</tbody>
+</table>
+<br>
+</li>
+<li><b>Heterogeneous Server Pool without Scaling</b> of all requests. This system is behind my Load Balancer.</li><br>
+<table>
+<thead>
+<tr>
+<th>Instance Type</th>
+<th>Quantity</th>
+<th>vCPU</th>
+<th>ECU</th>
+<th>Memory</th>
+<th>AWS Hourly Cost($/hr)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c4.large</td>
+<td>12</td>
+<td>2</td>
+<td>8</td>
+<td>3.75</td>
+<td>0.105</td>
+</tr>
+<tr>
+<td>r4.large</td>
+<td>1</td>
+<td>2</td>
+<td>6.5</td>
+<td>15</td>
+<td>0.166</td>
+</tr>
+<tr>
+<td>t2.micro</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0.013</td>
+</tr>
+</tbody>
+</table>
+<br>
+<li><b>Heterogeneous Server Pool with Scaling</b> of all requests. This is the baseline system behind the Elastic Load Balancer.</li><br>
+<table>
+<thead>
+<tr>
+<th>Instance Type</th>
+<th>Min</th>
+<th>Max</th>
+<th>vCPU</th>
+<th>ECU</th>
+<th>Memory</th>
+<th>AWS Hourly Cost($/hr)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c4.large</td>
+<td>2</td>
+<td>16</td>
+<td>2</td>
+<td>8</td>
+<td>3.75</td>
+<td>0.105</td>
+</tr>
+<tr>
+<td>r3.large</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>6.5</td>
+<td>15</td>
+<td>0.166</td>
+</tr>
+<tr>
+<td>t2.micro</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0.013</td>
+</tr>
+</tbody>
+</table>
+<h6>Scaling Policy</h6>
+<p><b>c4.large:</b>For this instance pool we have two conditions to scale up. If Average CPUUtilisation for 20 second period is between 30-60 add four instances
+and if between 60-100 add another four instances.We can merge these two into one and it produces the same result. For scale down policy if 
+the average CPU utilisation is below 15 for 20 second period we remove 2 instances.</p>
+<p><b>r3.large:</b>I tried horizontal scaling with a distributed memcached configuration but the overhead of transfering data over the network to the memcached server was too much 
+and degraded performance thus I went with vertical scaling by using a memory optimised r3 instance.</p>
+<p><b>t2.micro:</b>For tellmeknow requests a single of this type of instance is sufficient.</p>
+</ul>
 <h4>Trace Characteristics</h4>
 <p>To evaluate the system I created four differant traces having differant characteristics:-</p>
 <ul>
@@ -101,7 +222,7 @@ required by memcached service to fetch the resource. This request simulates the 
 <b>Trace 1:</b> is a mix of I/O and compute.<br>
 <table>
 <thead>
-<tr><th>Request Type</th><th>Quantity</th></tr>
+<tr><th style="width:30%;">Request Type</th><th>Quantity</th></tr>
 </thead>
 <tbody>
 <tr><td>memorykiller</td><td>2600</td></tr>
@@ -110,12 +231,16 @@ required by memcached service to fetch the resource. This request simulates the 
 </tbody>
 </table>
 <br>
+<p>Both 418wisdom and Computeprimes arrive based on a normal distribution of the number of requests for 12 minute period. 
+The memory killer requests arrive in two batches of normal distributions over a period of 6 minutes each. A lot of these requests
+are repeated more than once accross the batches so there is oppertunity for caching. Also 5/6 of the total requests are image reqeusts(2-3 MB) read
+from disk in worst case whereas the other remaining 1/6th are video file requests of 20MB.</p>
 </li>
 <li>
 <b>Trace 2:</b> is a mix of I/O and compute along with requests having strict latency requirement.<br>
 <table>
 <thead>
-<tr><th>Request Type</th><th>Quantity</th></tr>
+<tr><th style="width:30%;">Request Type</th><th>Quantity</th></tr>
 </thead>
 <tbody>
 <tr><td>memorykiller</td><td>3600</td></tr>
@@ -124,12 +249,18 @@ required by memcached service to fetch the resource. This request simulates the 
 </tbody>
 </table>
 <br>
+<p>Both tellmenow and Computeprimes arrive based on a normal distribution of the number of requests for 13 minute period. 
+The memory killer requests arrive in two batches of normal distributions over a period of 6.5 minutes each. A lot of these requests
+are repeated more than once accross the batches so there is oppertunity for caching. Also 5/6 of the total requests are image reqeusts(2-3 MB) read
+from disk in worst case whereas the other remaining 1/6th are video file requests of 20MB. The idea of this trace is to measure the 
+systems ability to deal with the latency critical requests when we have I/O and compute bound jobs that could potentially affect response times of this
+latency critical job.</p>
 </li>
 <li>
-<b>Trace 3:</b> is a mix of compute and I/O.<br>
+<b>Trace 3:</b> is a mix of along with requests having strict latency requirement.<br>
 <table>
 <thead>
-<tr><th>Request Type</th><th>Quantity</th></tr>
+<tr><th style="width:30%;">Request Type</th><th>Quantity</th></tr>
 </thead>
 <tbody>
 <tr><td>tellmenow</td><td>300</td></tr>
@@ -137,12 +268,15 @@ required by memcached service to fetch the resource. This request simulates the 
 </tbody>
 </table>
 <br>
+<p>Both tellmenow and 418 arrive based on a normal distribution of the number of requests for 10 minute period. 
+The idea of this trace is to measure the systems ability to deal with the latency critical requests when we have compute bound jobs that could potentially affect 
+response times of this latency critical job.</p>
 </li>
 <li>
 <b>Trace 4:</b> is a mix of I/O and compute.<br>
 <table>
 <thead>
-<tr><th>Request Type</th><th>Quantity</th></tr>
+<tr><th style="width:30%;">Request Type</th><th>Quantity</th></tr>
 </thead>
 <tbody>
 <tr><td>tellmenow</td><td>~1000</td></tr>
@@ -151,17 +285,25 @@ required by memcached service to fetch the resource. This request simulates the 
 </tbody>
 </table>
 <br>
+<p>This trace was created by creating a normal distribution of 3000 arrival time points over a 11 minute period 
+and then for each time point one of the three type of request was sent at that moment. This simulates a random heterogeneous workload
+with normally distributed arrival times and we use this to measure the systems ability to handle latency critical as well as computationally
+heavy workload.
+</p>
 </li>
 </ul>
-<p>TODO:Add more information abt trace characteristics</p>
-<h4>Trace 1</h4>
+
+<h4>Trace 1 Results</h4>
 <div>
 <img src="images/results/trace1/input1.jpg">
 <img src="images/results/trace1/response1.jpg">
+<p>Bla</p>
 <img src="images/results/trace1/input2.jpg">
 <img src="images/results/trace1/response2.jpg">
+<p>Bla</p>
 <img src="images/results/trace1/input3.jpg">
 <img src="images/results/trace1/response3.jpg">
+<p>Bla</p>
 </div>
 <h4>Trace 2</h4>
 <div>

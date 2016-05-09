@@ -593,13 +593,18 @@ table {
 }
 
 th {
-  font-weight: 500;
+  font-weight: 500;  
+  padding-top:10px;
+  padding-bottom:10px;
 }
 
 td {
   font-weight: 300;
-  text-align: center;
+  text-align: left;
   border: 1px solid #ebebeb;
+  padding-left:10px;
+  padding-top:10px;
+  padding-bottom:10px;
 }
 
 form {
@@ -810,6 +815,19 @@ footer a:hover {
 
 h5:before {
 	margin-left:0px;
+}
+
+h4:before {
+	margin-left:0px;
+}
+
+h6:before {
+	margin-left:0px;
+}
+
+
+th{
+	padding-left:10px;
 }
 
 /* #Media Queries
