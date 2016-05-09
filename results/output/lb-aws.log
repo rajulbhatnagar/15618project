@@ -1,0 +1,441 @@
+18:46:44.660 [com.loadbalance.LoadBalancer.main()] INFO  com.loadbalance.LoadBalancer - Cloudwatch Client setup
+18:46:44.687 [com.loadbalance.LoadBalancer.main()] ERROR io.undertow.client - UT005026: Jetty ALPN support not found on boot class path, SPDY client will not be available.
+18:46:44.688 [com.loadbalance.LoadBalancer.main()] ERROR io.undertow.client - UT005026: Jetty ALPN support not found on boot class path, HTTP2 client will not be available.
+18:46:45.323 [com.loadbalance.LoadBalancer.main()] WARN  com.loadbalance.LaunchInstanceHelper - The security group 'AWS_ELASTIC_WEBSERVER' already exists for VPC 'vpc-ac9453c8' (Service: AmazonEC2; Status Code: 400; Error Code: InvalidGroup.Duplicate; Request ID: b4fa4228-d1e7-44a3-86fa-8619b1fe2e62)
+18:46:45.381 [com.loadbalance.LoadBalancer.main()] WARN  com.loadbalance.LaunchInstanceHelper - the specified rule "peer: 0.0.0.0/0, TCP, from port: 0, to port: 65535, ALLOW" already exists (Service: AmazonEC2; Status Code: 400; Error Code: InvalidPermission.Duplicate; Request ID: d78e1841-7017-43e4-bfb1-5c995de8e34f)
+18:46:45.383 [com.loadbalance.LoadBalancer.main()] INFO  com.loadbalance.LoadBalancer - Host http://ec2-52-91-189-205.compute-1.amazonaws.com:8080 added 
+18:46:45.383 [com.loadbalance.LoadBalancer.main()] INFO  com.loadbalance.LoadBalancer - Configured 1 hosts of type t2.micro
+18:46:45.388 [com.loadbalance.LoadBalancer.main()] INFO  com.loadbalance.LoadBalancer - Configured 0 hosts of type m4.large
+18:46:45.400 [com.loadbalance.LoadBalancer.main()] INFO  com.loadbalance.LoadBalancer - Configured 0 hosts of type c3.xlarge
+18:46:45.432 [com.loadbalance.LoadBalancer.main()] INFO  org.xnio - XNIO version 3.3.6.Final
+18:46:45.442 [com.loadbalance.LoadBalancer.main()] INFO  org.xnio.nio - XNIO NIO Implementation Version 3.3.1.Final
+18:46:46.129 [pool-3-thread-1] INFO  com.loadbalance.LaunchInstanceHelper - Starting Server Ondemand: i-a7e8aa20
+18:46:46.133 [pool-3-thread-2] INFO  com.loadbalance.LaunchInstanceHelper - Starting Server Ondemand: i-ceeba949
+18:46:46.186 [pool-3-thread-4] INFO  com.loadbalance.LaunchInstanceHelper - Starting Server Ondemand: i-4f5101d2
+18:46:46.222 [pool-3-thread-3] INFO  com.loadbalance.LaunchInstanceHelper - Starting Server Ondemand: i-fc510161
+18:47:16.656 [pool-3-thread-1] INFO  com.loadbalance.LaunchInstanceHelper - Instance Running i-a7e8aa20
+18:47:16.669 [pool-3-thread-2] INFO  com.loadbalance.LaunchInstanceHelper - Instance Running i-ceeba949
+18:47:16.731 [pool-3-thread-2] INFO  com.loadbalance.LaunchInstanceHelper - Hostname is ec2-54-164-116-220.compute-1.amazonaws.com
+18:47:16.732 [pool-3-thread-1] INFO  com.loadbalance.LaunchInstanceHelper - Hostname is ec2-54-175-16-8.compute-1.amazonaws.com
+18:47:16.735 [pool-3-thread-3] INFO  com.loadbalance.LaunchInstanceHelper - Instance Running i-fc510161
+18:47:16.737 [pool-3-thread-4] INFO  com.loadbalance.LaunchInstanceHelper - Instance Running i-4f5101d2
+18:47:16.813 [pool-3-thread-4] INFO  com.loadbalance.LaunchInstanceHelper - Hostname is ec2-54-84-254-150.compute-1.amazonaws.com
+18:47:16.815 [pool-3-thread-3] INFO  com.loadbalance.LaunchInstanceHelper - Hostname is ec2-52-87-159-100.compute-1.amazonaws.com
+18:47:16.981 [pool-3-thread-3] INFO  com.loadbalance.LaunchInstanceHelper - Waiting for boot..
+18:47:17.053 [pool-3-thread-4] INFO  com.loadbalance.LaunchInstanceHelper - Waiting for boot..
+18:47:17.081 [pool-3-thread-1] INFO  com.loadbalance.LaunchInstanceHelper - Waiting for boot..
+18:47:17.172 [pool-3-thread-2] INFO  com.loadbalance.LaunchInstanceHelper - Waiting for boot..
+18:48:46.982 [pool-3-thread-3] INFO  com.loadbalance.LoadBalancer - Instance launched callback
+18:48:47.053 [pool-3-thread-4] INFO  com.loadbalance.LoadBalancer - Instance launched callback
+18:48:47.082 [pool-3-thread-1] INFO  com.loadbalance.LoadBalancer - Instance launched callback
+18:48:47.172 [pool-3-thread-2] INFO  com.loadbalance.LoadBalancer - Instance launched callback
+18:48:59.626 [XNIO-1 I/O-1] ERROR io.undertow.request - UT005071: Undertow request failed HttpServerExchange{ GET /health request {Accept=[text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8], Connection=[keep-alive], Accept-Language=[en-US,en;q=0.5], Accept-Encoding=[gzip, deflate], User-Agent=[Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0], Host=[ec2-54-85-254-134.compute-1.amazonaws.com]} response {}}
+java.lang.NullPointerException
+	at com.loadbalance.AwsScalingHostSelector.selectHost(AwsScalingHostSelector.java:30) ~[classes/:?]
+	at com.loadbalance.LoadBalancerHandler.selectHost(LoadBalancerHandler.java:317) ~[classes/:?]
+	at com.loadbalance.LoadBalancerHandler.getConnection(LoadBalancerHandler.java:286) ~[classes/:?]
+	at io.undertow.server.handlers.proxy.ProxyHandler$ProxyClientHandler.run(ProxyHandler.java:264) ~[undertow-core-1.3.18.Final.jar:1.3.18.Final]
+	at io.undertow.util.SameThreadExecutor.execute(SameThreadExecutor.java:35) ~[undertow-core-1.3.18.Final.jar:1.3.18.Final]
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:215) [undertow-core-1.3.18.Final.jar:1.3.18.Final]
+	at io.undertow.server.protocol.http.HttpReadListener.handleEventWithNoRunningRequest(HttpReadListener.java:233) [undertow-core-1.3.18.Final.jar:1.3.18.Final]
+	at io.undertow.server.protocol.http.HttpReadListener.handleEvent(HttpReadListener.java:131) [undertow-core-1.3.18.Final.jar:1.3.18.Final]
+	at io.undertow.server.protocol.http.HttpOpenListener.handleEvent(HttpOpenListener.java:145) [undertow-core-1.3.18.Final.jar:1.3.18.Final]
+	at io.undertow.server.protocol.http.HttpOpenListener.handleEvent(HttpOpenListener.java:92) [undertow-core-1.3.18.Final.jar:1.3.18.Final]
+	at io.undertow.server.protocol.http.HttpOpenListener.handleEvent(HttpOpenListener.java:51) [undertow-core-1.3.18.Final.jar:1.3.18.Final]
+	at org.xnio.ChannelListeners.invokeChannelListener(ChannelListeners.java:92) [xnio-api-3.3.6.Final.jar:3.3.6.Final]
+	at org.xnio.ChannelListeners$10.handleEvent(ChannelListeners.java:291) [xnio-api-3.3.6.Final.jar:3.3.6.Final]
+	at org.xnio.ChannelListeners$10.handleEvent(ChannelListeners.java:286) [xnio-api-3.3.6.Final.jar:3.3.6.Final]
+	at org.xnio.ChannelListeners.invokeChannelListener(ChannelListeners.java:92) [xnio-api-3.3.6.Final.jar:3.3.6.Final]
+	at org.xnio.nio.NioTcpServerHandle.handleReady(NioTcpServerHandle.java:53) [xnio-nio-3.3.1.Final.jar:3.3.1.Final]
+	at org.xnio.nio.WorkerThread.run(WorkerThread.java:539) [xnio-nio-3.3.1.Final.jar:3.3.1.Final]
+18:49:45.460 [Timer-5] INFO  com.loadbalance.LoadBalancer - 0 CPU 4.271249999999999
+18:49:45.462 [Timer-0] WARN  com.loadbalance.LoadBalancer - No data found from cloudwatch for given period
+18:49:45.464 [Timer-3] INFO  com.loadbalance.LoadBalancer - 0 CPU 9.17
+18:49:45.464 [Timer-2] INFO  com.loadbalance.LoadBalancer - 0 CPU 4.271249999999999
+18:49:45.468 [Timer-4] INFO  com.loadbalance.LoadBalancer - 0 CPU 9.17
+18:49:45.470 [Timer-1] WARN  com.loadbalance.LoadBalancer - No data found from cloudwatch for given period
+18:49:45.475 [Timer-5] INFO  com.loadbalance.LoadBalancer - 1 CPU 4.271249999999999
+18:49:45.475 [Timer-5] INFO  com.loadbalance.LoadBalancer - AVG CPU 4.271249999999999
+18:49:45.475 [Timer-5] INFO  com.loadbalance.LoadBalancer - Scale in Desired 2 0
+18:49:45.480 [Timer-0] INFO  com.loadbalance.LoadBalancer - 1 CPU 15.42
+18:49:45.480 [Timer-0] INFO  com.loadbalance.LoadBalancer - AVG CPU 7.71
+18:49:45.480 [Timer-2] INFO  com.loadbalance.LoadBalancer - 1 CPU 4.271249999999999
+18:49:45.480 [Timer-2] INFO  com.loadbalance.LoadBalancer - AVG CPU 4.271249999999999
+18:49:45.480 [Timer-2] INFO  com.loadbalance.LoadBalancer - Scale in Desired 2 0
+18:49:45.481 [Timer-3] INFO  com.loadbalance.LoadBalancer - 1 CPU 8.92
+18:49:45.481 [Timer-3] INFO  com.loadbalance.LoadBalancer - AVG CPU 9.045
+18:49:45.491 [Timer-1] INFO  com.loadbalance.LoadBalancer - 1 CPU 15.42
+18:49:45.491 [Timer-1] INFO  com.loadbalance.LoadBalancer - AVG CPU 7.71
+18:49:45.493 [Timer-4] INFO  com.loadbalance.LoadBalancer - 1 CPU 8.92
+18:49:45.493 [Timer-4] INFO  com.loadbalance.LoadBalancer - AVG CPU 9.045
+18:50:45.424 [Timer-4] INFO  com.loadbalance.LoadBalancer - 0 CPU 4.6049999999999995
+18:50:45.426 [Timer-0] INFO  com.loadbalance.LoadBalancer - 0 CPU 15.58
+18:50:45.428 [Timer-3] INFO  com.loadbalance.LoadBalancer - 0 CPU 4.6049999999999995
+18:50:45.429 [Timer-2] INFO  com.loadbalance.LoadBalancer - 0 CPU 6.161249999999999
+18:50:45.429 [Timer-5] INFO  com.loadbalance.LoadBalancer - 0 CPU 6.161249999999999
+18:50:45.430 [Timer-1] INFO  com.loadbalance.LoadBalancer - 0 CPU 15.58
+18:50:45.438 [Timer-4] INFO  com.loadbalance.LoadBalancer - 1 CPU 4.46
+18:50:45.438 [Timer-4] INFO  com.loadbalance.LoadBalancer - AVG CPU 4.5325
+18:50:45.441 [Timer-3] INFO  com.loadbalance.LoadBalancer - 1 CPU 4.46
+18:50:45.441 [Timer-3] INFO  com.loadbalance.LoadBalancer - AVG CPU 4.5325
+18:50:45.443 [Timer-1] INFO  com.loadbalance.LoadBalancer - 1 CPU 7.75
+18:50:45.443 [Timer-1] INFO  com.loadbalance.LoadBalancer - AVG CPU 11.665
+18:50:45.444 [Timer-2] INFO  com.loadbalance.LoadBalancer - 1 CPU 6.161249999999999
+18:50:45.444 [Timer-2] INFO  com.loadbalance.LoadBalancer - AVG CPU 6.161249999999999
+18:50:45.444 [Timer-0] INFO  com.loadbalance.LoadBalancer - 1 CPU 7.75
+18:50:45.444 [Timer-0] INFO  com.loadbalance.LoadBalancer - AVG CPU 11.665
+18:50:45.444 [Timer-2] INFO  com.loadbalance.LoadBalancer - Scale in Desired 2 0
+18:50:45.452 [Timer-5] INFO  com.loadbalance.LoadBalancer - 1 CPU 6.161249999999999
+18:50:45.452 [Timer-5] INFO  com.loadbalance.LoadBalancer - AVG CPU 6.161249999999999
+18:50:45.452 [Timer-5] INFO  com.loadbalance.LoadBalancer - Scale in Desired 2 0
+18:51:45.422 [Timer-0] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.0
+18:51:45.423 [Timer-1] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.0
+18:51:45.424 [Timer-3] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.02
+18:51:45.425 [Timer-2] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.2225
+18:51:45.425 [Timer-4] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.02
+18:51:45.433 [Timer-5] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.2225
+18:51:45.435 [Timer-2] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.2225
+18:51:45.435 [Timer-2] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.2225
+18:51:45.435 [Timer-2] INFO  com.loadbalance.LoadBalancer - Scale in Desired 2 0
+18:51:45.438 [Timer-1] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.08
+18:51:45.438 [Timer-1] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.04
+18:51:45.438 [Timer-3] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.71
+18:51:45.438 [Timer-3] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.365
+18:51:45.440 [Timer-4] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.71
+18:51:45.440 [Timer-4] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.365
+18:51:45.440 [Timer-0] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.08
+18:51:45.440 [Timer-0] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.04
+18:51:45.446 [Timer-5] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.2225
+18:51:45.446 [Timer-5] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.2225
+18:51:45.446 [Timer-5] INFO  com.loadbalance.LoadBalancer - Scale in Desired 2 0
+18:52:45.425 [Timer-4] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.04
+18:52:45.425 [Timer-3] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.04
+18:52:45.427 [Timer-1] INFO  com.loadbalance.LoadBalancer - 0 CPU 2.5
+18:52:45.428 [Timer-2] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.54625
+18:52:45.431 [Timer-5] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.54625
+18:52:45.435 [Timer-3] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.73
+18:52:45.435 [Timer-3] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.385
+18:52:45.440 [Timer-4] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.73
+18:52:45.440 [Timer-4] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.385
+18:52:45.440 [Timer-1] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.08
+18:52:45.440 [Timer-1] INFO  com.loadbalance.LoadBalancer - AVG CPU 1.29
+18:52:45.441 [Timer-2] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.54625
+18:52:45.441 [Timer-2] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.54625
+18:52:45.441 [Timer-2] INFO  com.loadbalance.LoadBalancer - Scale in Desired 2 0
+18:52:45.444 [Timer-5] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.54625
+18:52:45.444 [Timer-5] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.54625
+18:52:45.444 [Timer-5] INFO  com.loadbalance.LoadBalancer - Scale in Desired 2 0
+18:52:45.452 [Timer-0] INFO  com.loadbalance.LoadBalancer - 0 CPU 2.5
+18:52:45.465 [Timer-0] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.08
+18:52:45.465 [Timer-0] INFO  com.loadbalance.LoadBalancer - AVG CPU 1.29
+18:53:45.420 [Timer-4] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.06
+18:53:45.422 [Timer-3] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.06
+18:53:45.425 [Timer-0] INFO  com.loadbalance.LoadBalancer - 0 CPU 2.58
+18:53:45.425 [Timer-1] INFO  com.loadbalance.LoadBalancer - 0 CPU 2.58
+18:53:45.422 [Timer-2] INFO  com.loadbalance.LoadBalancer - 0 CPU 1.05625
+18:53:45.435 [Timer-5] INFO  com.loadbalance.LoadBalancer - 0 CPU 1.05625
+18:53:45.436 [Timer-0] INFO  com.loadbalance.LoadBalancer - 1 CPU 2.75
+18:53:45.437 [Timer-0] INFO  com.loadbalance.LoadBalancer - AVG CPU 2.665
+18:53:45.435 [Timer-2] INFO  com.loadbalance.LoadBalancer - 1 CPU 1.05625
+18:53:45.437 [Timer-2] INFO  com.loadbalance.LoadBalancer - AVG CPU 1.05625
+18:53:45.437 [Timer-2] INFO  com.loadbalance.LoadBalancer - Scale in Desired 2 0
+18:53:45.438 [Timer-4] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.04
+18:53:45.438 [Timer-4] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.05
+18:53:45.438 [Timer-3] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.04
+18:53:45.439 [Timer-3] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.05
+18:53:45.439 [Timer-1] INFO  com.loadbalance.LoadBalancer - 1 CPU 2.75
+18:53:45.439 [Timer-1] INFO  com.loadbalance.LoadBalancer - AVG CPU 2.665
+18:53:45.448 [Timer-5] INFO  com.loadbalance.LoadBalancer - 1 CPU 1.05625
+18:53:45.448 [Timer-5] INFO  com.loadbalance.LoadBalancer - AVG CPU 1.05625
+18:53:45.448 [Timer-5] INFO  com.loadbalance.LoadBalancer - Scale in Desired 2 0
+18:54:45.421 [Timer-3] INFO  com.loadbalance.LoadBalancer - 0 CPU 1.855
+18:54:45.423 [Timer-0] INFO  com.loadbalance.LoadBalancer - 0 CPU 8.0
+18:54:45.424 [Timer-1] INFO  com.loadbalance.LoadBalancer - 0 CPU 8.0
+18:54:45.426 [Timer-4] INFO  com.loadbalance.LoadBalancer - 0 CPU 1.855
+18:54:45.427 [Timer-2] INFO  com.loadbalance.LoadBalancer - 0 CPU 6.40625
+18:54:45.431 [Timer-3] INFO  com.loadbalance.LoadBalancer - 1 CPU 5.31
+18:54:45.431 [Timer-3] INFO  com.loadbalance.LoadBalancer - AVG CPU 3.5824999999999996
+18:54:45.432 [Timer-4] INFO  com.loadbalance.LoadBalancer - 1 CPU 5.31
+18:54:45.433 [Timer-4] INFO  com.loadbalance.LoadBalancer - AVG CPU 3.5824999999999996
+18:54:45.433 [Timer-0] INFO  com.loadbalance.LoadBalancer - 1 CPU 14.375
+18:54:45.433 [Timer-0] INFO  com.loadbalance.LoadBalancer - AVG CPU 11.1875
+18:54:45.436 [Timer-5] INFO  com.loadbalance.LoadBalancer - 0 CPU 6.40625
+18:54:45.437 [Timer-1] INFO  com.loadbalance.LoadBalancer - 1 CPU 14.375
+18:54:45.437 [Timer-1] INFO  com.loadbalance.LoadBalancer - AVG CPU 11.1875
+18:54:45.438 [Timer-2] INFO  com.loadbalance.LoadBalancer - 1 CPU 6.40625
+18:54:45.438 [Timer-2] INFO  com.loadbalance.LoadBalancer - AVG CPU 6.40625
+18:54:45.438 [Timer-2] INFO  com.loadbalance.LoadBalancer - Scale in Desired 2 0
+18:54:45.449 [Timer-5] INFO  com.loadbalance.LoadBalancer - 1 CPU 6.40625
+18:54:45.449 [Timer-5] INFO  com.loadbalance.LoadBalancer - AVG CPU 6.40625
+18:54:45.449 [Timer-5] INFO  com.loadbalance.LoadBalancer - Scale in Desired 2 0
+18:55:45.421 [Timer-1] INFO  com.loadbalance.LoadBalancer - 0 CPU 27.92
+18:55:45.423 [Timer-0] INFO  com.loadbalance.LoadBalancer - 0 CPU 27.92
+18:55:45.424 [Timer-4] INFO  com.loadbalance.LoadBalancer - 0 CPU 6.6049999999999995
+18:55:45.426 [Timer-3] INFO  com.loadbalance.LoadBalancer - 0 CPU 6.6049999999999995
+18:55:45.426 [Timer-2] INFO  com.loadbalance.LoadBalancer - 0 CPU 20.40625
+18:55:45.434 [Timer-1] INFO  com.loadbalance.LoadBalancer - 1 CPU 52.415
+18:55:45.434 [Timer-1] INFO  com.loadbalance.LoadBalancer - AVG CPU 40.167500000000004
+18:55:45.436 [Timer-3] INFO  com.loadbalance.LoadBalancer - 1 CPU 8.52
+18:55:45.436 [Timer-3] INFO  com.loadbalance.LoadBalancer - AVG CPU 7.5625
+18:55:45.436 [Timer-4] INFO  com.loadbalance.LoadBalancer - 1 CPU 8.52
+18:55:45.436 [Timer-2] INFO  com.loadbalance.LoadBalancer - 1 CPU 20.40625
+18:55:45.437 [Timer-2] INFO  com.loadbalance.LoadBalancer - AVG CPU 20.40625
+18:55:45.437 [Timer-4] INFO  com.loadbalance.LoadBalancer - AVG CPU 7.5625
+18:55:45.438 [Timer-0] INFO  com.loadbalance.LoadBalancer - 1 CPU 52.415
+18:55:45.438 [Timer-0] INFO  com.loadbalance.LoadBalancer - AVG CPU 40.167500000000004
+18:55:45.438 [Timer-0] INFO  com.loadbalance.LoadBalancer - Scale Out Desired 6 4
+18:55:45.475 [Timer-5] INFO  com.loadbalance.LoadBalancer - 0 CPU 20.40625
+18:55:45.487 [Timer-5] INFO  com.loadbalance.LoadBalancer - 1 CPU 20.40625
+18:55:45.487 [Timer-5] INFO  com.loadbalance.LoadBalancer - AVG CPU 20.40625
+18:55:46.167 [pool-3-thread-6] INFO  com.loadbalance.LaunchInstanceHelper - Starting Server Ondemand: i-43ecaec4
+18:55:46.190 [pool-3-thread-8] INFO  com.loadbalance.LaunchInstanceHelper - Starting Server Ondemand: i-eeecae69
+18:55:46.215 [pool-3-thread-7] INFO  com.loadbalance.LaunchInstanceHelper - Starting Server Ondemand: i-efecae68
+18:55:46.305 [pool-3-thread-5] INFO  com.loadbalance.LaunchInstanceHelper - Starting Server Ondemand: i-baedaf3d
+18:56:11.698 [pool-3-thread-8] INFO  com.loadbalance.LaunchInstanceHelper - Instance Running i-eeecae69
+18:56:11.795 [pool-3-thread-8] INFO  com.loadbalance.LaunchInstanceHelper - Hostname is ec2-54-172-201-2.compute-1.amazonaws.com
+18:56:12.191 [pool-3-thread-8] INFO  com.loadbalance.LaunchInstanceHelper - Waiting for boot..
+18:56:16.860 [pool-3-thread-5] INFO  com.loadbalance.LaunchInstanceHelper - Instance Running i-baedaf3d
+18:56:16.972 [pool-3-thread-5] INFO  com.loadbalance.LaunchInstanceHelper - Hostname is ec2-54-174-186-10.compute-1.amazonaws.com
+18:56:17.169 [pool-3-thread-5] INFO  com.loadbalance.LaunchInstanceHelper - Waiting for boot..
+18:56:21.813 [pool-3-thread-6] INFO  com.loadbalance.LaunchInstanceHelper - Instance Running i-43ecaec4
+18:56:21.838 [pool-3-thread-7] INFO  com.loadbalance.LaunchInstanceHelper - Instance Running i-efecae68
+18:56:21.906 [pool-3-thread-7] INFO  com.loadbalance.LaunchInstanceHelper - Hostname is ec2-52-87-254-39.compute-1.amazonaws.com
+18:56:21.908 [pool-3-thread-6] INFO  com.loadbalance.LaunchInstanceHelper - Hostname is ec2-52-91-161-58.compute-1.amazonaws.com
+18:56:22.100 [pool-3-thread-7] INFO  com.loadbalance.LaunchInstanceHelper - Waiting for boot..
+18:56:22.133 [pool-3-thread-6] INFO  com.loadbalance.LaunchInstanceHelper - Waiting for boot..
+18:56:45.423 [Timer-3] INFO  com.loadbalance.LoadBalancer - 0 CPU 17.0
+18:56:45.425 [Timer-4] INFO  com.loadbalance.LoadBalancer - 0 CPU 17.0
+18:56:45.435 [Timer-5] INFO  com.loadbalance.LoadBalancer - 0 CPU 41.7325
+18:56:45.437 [Timer-4] INFO  com.loadbalance.LoadBalancer - 1 CPU 21.27
+18:56:45.437 [Timer-4] INFO  com.loadbalance.LoadBalancer - AVG CPU 19.134999999999998
+18:56:45.438 [Timer-3] INFO  com.loadbalance.LoadBalancer - 1 CPU 21.27
+18:56:45.438 [Timer-3] INFO  com.loadbalance.LoadBalancer - AVG CPU 19.134999999999998
+18:56:45.449 [Timer-5] INFO  com.loadbalance.LoadBalancer - 1 CPU 41.7325
+18:56:45.449 [Timer-5] INFO  com.loadbalance.LoadBalancer - AVG CPU 41.7325
+18:57:42.191 [pool-3-thread-8] INFO  com.loadbalance.LoadBalancer - Instance launched callback
+18:57:45.423 [Timer-4] INFO  com.loadbalance.LoadBalancer - 0 CPU 57.105000000000004
+18:57:45.424 [Timer-3] INFO  com.loadbalance.LoadBalancer - 0 CPU 57.105000000000004
+18:57:45.434 [Timer-5] INFO  com.loadbalance.LoadBalancer - 0 CPU 61.095
+18:57:45.435 [Timer-4] INFO  com.loadbalance.LoadBalancer - 1 CPU 40.605000000000004
+18:57:45.435 [Timer-4] INFO  com.loadbalance.LoadBalancer - AVG CPU 48.855000000000004
+18:57:45.437 [Timer-3] INFO  com.loadbalance.LoadBalancer - 1 CPU 40.605000000000004
+18:57:45.437 [Timer-3] INFO  com.loadbalance.LoadBalancer - AVG CPU 48.855000000000004
+18:57:45.437 [Timer-3] INFO  com.loadbalance.LoadBalancer - Scale Out Desired 6 4
+18:57:45.447 [Timer-5] INFO  com.loadbalance.LoadBalancer - 1 CPU 61.095
+18:57:45.447 [Timer-5] INFO  com.loadbalance.LoadBalancer - AVG CPU 61.095
+18:57:46.082 [pool-3-thread-10] INFO  com.loadbalance.LaunchInstanceHelper - Starting Server Ondemand: i-e8580875
+18:57:46.132 [pool-3-thread-4] INFO  com.loadbalance.LaunchInstanceHelper - Starting Server Ondemand: i-fe570763
+18:57:46.134 [pool-3-thread-3] INFO  com.loadbalance.LaunchInstanceHelper - Starting Server Ondemand: i-e9580874
+18:57:46.244 [pool-3-thread-9] INFO  com.loadbalance.LaunchInstanceHelper - Starting Server Ondemand: i-ff570762
+18:57:47.170 [pool-3-thread-5] INFO  com.loadbalance.LoadBalancer - Instance launched callback
+18:57:52.100 [pool-3-thread-7] INFO  com.loadbalance.LoadBalancer - Instance launched callback
+18:57:52.133 [pool-3-thread-6] INFO  com.loadbalance.LoadBalancer - Instance launched callback
+18:58:06.605 [pool-3-thread-10] INFO  com.loadbalance.LaunchInstanceHelper - Instance Running i-e8580875
+18:58:06.707 [pool-3-thread-10] INFO  com.loadbalance.LaunchInstanceHelper - Hostname is ec2-54-164-210-4.compute-1.amazonaws.com
+18:58:07.237 [pool-3-thread-10] INFO  com.loadbalance.LaunchInstanceHelper - Waiting for boot..
+18:58:11.657 [pool-3-thread-3] INFO  com.loadbalance.LaunchInstanceHelper - Instance Running i-e9580874
+18:58:11.726 [pool-3-thread-9] INFO  com.loadbalance.LaunchInstanceHelper - Instance Running i-ff570762
+18:58:11.746 [pool-3-thread-3] INFO  com.loadbalance.LaunchInstanceHelper - Hostname is ec2-52-90-252-205.compute-1.amazonaws.com
+18:58:11.816 [pool-3-thread-9] INFO  com.loadbalance.LaunchInstanceHelper - Hostname is ec2-54-173-13-167.compute-1.amazonaws.com
+18:58:12.009 [pool-3-thread-3] INFO  com.loadbalance.LaunchInstanceHelper - Waiting for boot..
+18:58:12.054 [pool-3-thread-9] INFO  com.loadbalance.LaunchInstanceHelper - Waiting for boot..
+18:58:21.952 [pool-3-thread-4] INFO  com.loadbalance.LaunchInstanceHelper - Instance Running i-fe570763
+18:58:22.075 [pool-3-thread-4] INFO  com.loadbalance.LaunchInstanceHelper - Hostname is ec2-52-87-248-29.compute-1.amazonaws.com
+18:58:22.310 [pool-3-thread-4] INFO  com.loadbalance.LaunchInstanceHelper - Waiting for boot..
+18:58:45.422 [Timer-0] INFO  com.loadbalance.LoadBalancer - 0 CPU 97.42
+18:58:45.423 [Timer-1] INFO  com.loadbalance.LoadBalancer - 0 CPU 97.42
+18:58:45.425 [Timer-2] INFO  com.loadbalance.LoadBalancer - 0 CPU 69.849
+18:58:45.429 [Timer-0] INFO  com.loadbalance.LoadBalancer - 1 CPU 97.08
+18:58:45.431 [Timer-1] INFO  com.loadbalance.LoadBalancer - 1 CPU 97.08
+18:58:45.439 [Timer-2] INFO  com.loadbalance.LoadBalancer - 1 CPU 69.849
+18:58:45.440 [Timer-0] INFO  com.loadbalance.LoadBalancer - 2 CPU 48.83
+18:58:45.443 [Timer-1] INFO  com.loadbalance.LoadBalancer - 2 CPU 48.83
+18:58:45.448 [Timer-2] INFO  com.loadbalance.LoadBalancer - 2 CPU 69.849
+18:58:45.449 [Timer-0] WARN  com.loadbalance.LoadBalancer - No data found from cloudwatch for given period
+18:58:45.457 [Timer-1] WARN  com.loadbalance.LoadBalancer - No data found from cloudwatch for given period
+18:58:45.459 [Timer-2] INFO  com.loadbalance.LoadBalancer - 3 CPU 69.849
+18:58:45.464 [Timer-0] WARN  com.loadbalance.LoadBalancer - No data found from cloudwatch for given period
+18:58:45.466 [Timer-1] WARN  com.loadbalance.LoadBalancer - No data found from cloudwatch for given period
+18:58:45.469 [Timer-2] INFO  com.loadbalance.LoadBalancer - 4 CPU 69.849
+18:58:45.472 [Timer-1] INFO  com.loadbalance.LoadBalancer - 5 CPU 32.33
+18:58:45.472 [Timer-1] INFO  com.loadbalance.LoadBalancer - AVG CPU 45.94333333333333
+18:58:45.476 [Timer-0] INFO  com.loadbalance.LoadBalancer - 5 CPU 32.33
+18:58:45.476 [Timer-0] INFO  com.loadbalance.LoadBalancer - AVG CPU 45.94333333333333
+18:58:45.476 [Timer-0] INFO  com.loadbalance.LoadBalancer - Scale Out Desired 8 2
+18:58:45.478 [Timer-2] INFO  com.loadbalance.LoadBalancer - 5 CPU 69.849
+18:58:45.478 [Timer-2] INFO  com.loadbalance.LoadBalancer - AVG CPU 69.849
+18:58:46.139 [pool-3-thread-1] INFO  com.loadbalance.LaunchInstanceHelper - Starting Server Ondemand: i-46f2b0c1
+18:58:46.213 [pool-3-thread-2] INFO  com.loadbalance.LaunchInstanceHelper - Starting Server Ondemand: i-28f3b1af
+18:59:16.784 [pool-3-thread-2] INFO  com.loadbalance.LaunchInstanceHelper - Instance Running i-28f3b1af
+18:59:16.881 [pool-3-thread-2] INFO  com.loadbalance.LaunchInstanceHelper - Hostname is ec2-54-89-123-37.compute-1.amazonaws.com
+18:59:17.404 [pool-3-thread-2] INFO  com.loadbalance.LaunchInstanceHelper - Waiting for boot..
+18:59:21.700 [pool-3-thread-1] INFO  com.loadbalance.LaunchInstanceHelper - Instance Running i-46f2b0c1
+18:59:21.772 [pool-3-thread-1] INFO  com.loadbalance.LaunchInstanceHelper - Hostname is ec2-54-152-167-253.compute-1.amazonaws.com
+18:59:22.226 [pool-3-thread-1] INFO  com.loadbalance.LaunchInstanceHelper - Waiting for boot..
+18:59:37.237 [pool-3-thread-10] INFO  com.loadbalance.LoadBalancer - Instance launched callback
+18:59:42.009 [pool-3-thread-3] INFO  com.loadbalance.LoadBalancer - Instance launched callback
+18:59:42.054 [pool-3-thread-9] INFO  com.loadbalance.LoadBalancer - Instance launched callback
+18:59:52.310 [pool-3-thread-4] INFO  com.loadbalance.LoadBalancer - Instance launched callback
+19:00:45.436 [Timer-4] INFO  com.loadbalance.LoadBalancer - 0 CPU 65.685
+19:00:45.437 [Timer-3] INFO  com.loadbalance.LoadBalancer - 0 CPU 65.685
+19:00:45.441 [Timer-5] INFO  com.loadbalance.LoadBalancer - 0 CPU 59.403
+19:00:45.447 [Timer-3] INFO  com.loadbalance.LoadBalancer - 1 CPU 56.709999999999994
+19:00:45.448 [Timer-4] INFO  com.loadbalance.LoadBalancer - 1 CPU 56.709999999999994
+19:00:45.453 [Timer-5] INFO  com.loadbalance.LoadBalancer - 1 CPU 59.403
+19:00:45.461 [Timer-3] INFO  com.loadbalance.LoadBalancer - 2 CPU 9.54
+19:00:45.462 [Timer-4] INFO  com.loadbalance.LoadBalancer - 2 CPU 9.54
+19:00:45.466 [Timer-5] INFO  com.loadbalance.LoadBalancer - 2 CPU 59.403
+19:00:45.469 [Timer-4] INFO  com.loadbalance.LoadBalancer - 3 CPU 9.71
+19:00:45.472 [Timer-3] INFO  com.loadbalance.LoadBalancer - 3 CPU 9.71
+19:00:45.477 [Timer-5] INFO  com.loadbalance.LoadBalancer - 3 CPU 59.403
+19:00:45.486 [Timer-3] INFO  com.loadbalance.LoadBalancer - 4 CPU 8.085
+19:00:45.489 [Timer-5] INFO  com.loadbalance.LoadBalancer - 4 CPU 59.403
+19:00:45.498 [Timer-3] INFO  com.loadbalance.LoadBalancer - 5 CPU 10.25
+19:00:45.498 [Timer-3] INFO  com.loadbalance.LoadBalancer - AVG CPU 26.663333333333338
+19:00:45.500 [Timer-5] INFO  com.loadbalance.LoadBalancer - 5 CPU 59.403
+19:00:45.500 [Timer-5] INFO  com.loadbalance.LoadBalancer - AVG CPU 59.403
+19:00:45.535 [Timer-4] INFO  com.loadbalance.LoadBalancer - 4 CPU 8.085
+19:00:45.541 [Timer-4] INFO  com.loadbalance.LoadBalancer - 5 CPU 10.25
+19:00:45.541 [Timer-4] INFO  com.loadbalance.LoadBalancer - AVG CPU 26.663333333333338
+19:00:47.404 [pool-3-thread-2] INFO  com.loadbalance.LoadBalancer - Instance launched callback
+19:00:52.227 [pool-3-thread-1] INFO  com.loadbalance.LoadBalancer - Instance launched callback
+19:01:45.430 [Timer-0] INFO  com.loadbalance.LoadBalancer - 0 CPU 97.42
+19:01:45.431 [Timer-3] INFO  com.loadbalance.LoadBalancer - 0 CPU 19.025
+19:01:45.431 [Timer-1] INFO  com.loadbalance.LoadBalancer - 0 CPU 97.42
+19:01:45.440 [Timer-0] INFO  com.loadbalance.LoadBalancer - 1 CPU 97.85
+19:01:45.443 [Timer-2] INFO  com.loadbalance.LoadBalancer - 0 CPU 39.63958333333333
+19:01:45.444 [Timer-3] INFO  com.loadbalance.LoadBalancer - 1 CPU 8.645
+19:01:45.445 [Timer-1] INFO  com.loadbalance.LoadBalancer - 1 CPU 97.85
+19:01:45.446 [Timer-4] INFO  com.loadbalance.LoadBalancer - 0 CPU 19.025
+19:01:45.448 [Timer-5] INFO  com.loadbalance.LoadBalancer - 0 CPU 39.63958333333333
+19:01:45.452 [Timer-0] INFO  com.loadbalance.LoadBalancer - 2 CPU 98.41499999999999
+19:01:45.456 [Timer-2] INFO  com.loadbalance.LoadBalancer - 1 CPU 39.63958333333333
+19:01:45.459 [Timer-0] INFO  com.loadbalance.LoadBalancer - 3 CPU 99.25
+19:01:45.460 [Timer-3] INFO  com.loadbalance.LoadBalancer - 2 CPU 4.665
+19:01:45.460 [Timer-4] INFO  com.loadbalance.LoadBalancer - 1 CPU 8.645
+19:01:45.461 [Timer-5] INFO  com.loadbalance.LoadBalancer - 1 CPU 39.63958333333333
+19:01:45.465 [Timer-2] INFO  com.loadbalance.LoadBalancer - 2 CPU 39.63958333333333
+19:01:45.474 [Timer-4] INFO  com.loadbalance.LoadBalancer - 2 CPU 4.665
+19:01:45.475 [Timer-5] INFO  com.loadbalance.LoadBalancer - 2 CPU 39.63958333333333
+19:01:45.475 [Timer-0] INFO  com.loadbalance.LoadBalancer - 4 CPU 99.26
+19:01:45.476 [Timer-3] INFO  com.loadbalance.LoadBalancer - 3 CPU 4.875
+19:01:45.477 [Timer-2] INFO  com.loadbalance.LoadBalancer - 3 CPU 39.63958333333333
+19:01:45.486 [Timer-3] INFO  com.loadbalance.LoadBalancer - 4 CPU 3.48
+19:01:45.487 [Timer-4] INFO  com.loadbalance.LoadBalancer - 3 CPU 4.875
+19:01:45.488 [Timer-2] INFO  com.loadbalance.LoadBalancer - 4 CPU 39.63958333333333
+19:01:45.489 [Timer-5] INFO  com.loadbalance.LoadBalancer - 3 CPU 39.63958333333333
+19:01:45.490 [Timer-0] INFO  com.loadbalance.LoadBalancer - 5 CPU 63.545
+19:01:45.497 [Timer-3] INFO  com.loadbalance.LoadBalancer - 5 CPU 8.335
+19:01:45.497 [Timer-3] INFO  com.loadbalance.LoadBalancer - AVG CPU 8.170833333333333
+19:01:45.498 [Timer-0] INFO  com.loadbalance.LoadBalancer - 6 CPU 19.58
+19:01:45.502 [Timer-5] INFO  com.loadbalance.LoadBalancer - 4 CPU 39.63958333333333
+19:01:45.503 [Timer-2] INFO  com.loadbalance.LoadBalancer - 5 CPU 39.63958333333333
+19:01:45.503 [Timer-4] INFO  com.loadbalance.LoadBalancer - 4 CPU 3.48
+19:01:45.510 [Timer-0] INFO  com.loadbalance.LoadBalancer - 7 CPU 17.67
+19:01:45.510 [Timer-0] INFO  com.loadbalance.LoadBalancer - AVG CPU 74.12374999999999
+19:01:45.511 [Timer-5] INFO  com.loadbalance.LoadBalancer - 5 CPU 39.63958333333333
+19:01:45.511 [Timer-5] INFO  com.loadbalance.LoadBalancer - AVG CPU 39.63958333333333
+19:01:45.515 [Timer-2] INFO  com.loadbalance.LoadBalancer - 6 CPU 39.63958333333333
+19:01:45.516 [Timer-1] INFO  com.loadbalance.LoadBalancer - 2 CPU 98.41499999999999
+19:01:45.516 [Timer-4] INFO  com.loadbalance.LoadBalancer - 5 CPU 8.335
+19:01:45.517 [Timer-4] INFO  com.loadbalance.LoadBalancer - AVG CPU 8.170833333333333
+19:01:45.526 [Timer-2] INFO  com.loadbalance.LoadBalancer - 7 CPU 39.63958333333333
+19:01:45.526 [Timer-2] INFO  com.loadbalance.LoadBalancer - AVG CPU 39.63958333333333
+19:01:45.530 [Timer-1] INFO  com.loadbalance.LoadBalancer - 3 CPU 99.25
+19:01:45.542 [Timer-1] INFO  com.loadbalance.LoadBalancer - 4 CPU 99.26
+19:01:45.552 [Timer-1] INFO  com.loadbalance.LoadBalancer - 5 CPU 63.545
+19:01:45.559 [Timer-1] INFO  com.loadbalance.LoadBalancer - 6 CPU 19.58
+19:01:45.571 [Timer-1] INFO  com.loadbalance.LoadBalancer - 7 CPU 17.67
+19:01:45.571 [Timer-1] INFO  com.loadbalance.LoadBalancer - AVG CPU 74.12374999999999
+19:02:45.422 [Timer-2] INFO  com.loadbalance.LoadBalancer - 0 CPU 29.939230769230765
+19:02:45.425 [Timer-3] INFO  com.loadbalance.LoadBalancer - 0 CPU 1.5050000000000001
+19:02:45.427 [Timer-4] INFO  com.loadbalance.LoadBalancer - 0 CPU 1.5050000000000001
+19:02:45.433 [Timer-5] INFO  com.loadbalance.LoadBalancer - 0 CPU 29.939230769230765
+19:02:45.434 [Timer-2] INFO  com.loadbalance.LoadBalancer - 1 CPU 29.939230769230765
+19:02:45.437 [Timer-4] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.52
+19:02:45.438 [Timer-3] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.52
+19:02:45.446 [Timer-2] INFO  com.loadbalance.LoadBalancer - 2 CPU 29.939230769230765
+19:02:45.446 [Timer-3] INFO  com.loadbalance.LoadBalancer - 2 CPU 1.0
+19:02:45.450 [Timer-4] INFO  com.loadbalance.LoadBalancer - 2 CPU 1.0
+19:02:45.451 [Timer-5] INFO  com.loadbalance.LoadBalancer - 1 CPU 29.939230769230765
+19:02:45.461 [Timer-3] INFO  com.loadbalance.LoadBalancer - 3 CPU 0.54
+19:02:45.464 [Timer-4] INFO  com.loadbalance.LoadBalancer - 3 CPU 0.54
+19:02:45.464 [Timer-5] INFO  com.loadbalance.LoadBalancer - 2 CPU 29.939230769230765
+19:02:45.468 [Timer-2] INFO  com.loadbalance.LoadBalancer - 3 CPU 29.939230769230765
+19:02:45.474 [Timer-3] INFO  com.loadbalance.LoadBalancer - 4 CPU 1.625
+19:02:45.479 [Timer-4] INFO  com.loadbalance.LoadBalancer - 4 CPU 1.625
+19:02:45.483 [Timer-5] INFO  com.loadbalance.LoadBalancer - 3 CPU 29.939230769230765
+19:02:45.487 [Timer-3] INFO  com.loadbalance.LoadBalancer - 5 CPU 3.23
+19:02:45.487 [Timer-3] INFO  com.loadbalance.LoadBalancer - AVG CPU 1.4033333333333333
+19:02:45.491 [Timer-5] INFO  com.loadbalance.LoadBalancer - 4 CPU 29.939230769230765
+19:02:45.492 [Timer-4] INFO  com.loadbalance.LoadBalancer - 5 CPU 3.23
+19:02:45.492 [Timer-4] INFO  com.loadbalance.LoadBalancer - AVG CPU 1.4033333333333333
+19:02:45.505 [Timer-5] INFO  com.loadbalance.LoadBalancer - 5 CPU 29.939230769230765
+19:02:45.505 [Timer-5] INFO  com.loadbalance.LoadBalancer - AVG CPU 29.939230769230765
+19:02:45.531 [Timer-2] INFO  com.loadbalance.LoadBalancer - 4 CPU 29.939230769230765
+19:02:45.545 [Timer-2] INFO  com.loadbalance.LoadBalancer - 5 CPU 29.939230769230765
+19:02:45.554 [Timer-2] INFO  com.loadbalance.LoadBalancer - 6 CPU 29.939230769230765
+19:02:45.561 [Timer-2] INFO  com.loadbalance.LoadBalancer - 7 CPU 29.939230769230765
+19:02:45.561 [Timer-2] INFO  com.loadbalance.LoadBalancer - AVG CPU 29.939230769230765
+19:03:45.424 [Timer-2] INFO  com.loadbalance.LoadBalancer - 0 CPU 21.76076923076923
+19:03:45.425 [Timer-4] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.02
+19:03:45.426 [Timer-3] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.02
+19:03:45.434 [Timer-5] INFO  com.loadbalance.LoadBalancer - 0 CPU 21.76076923076923
+19:03:45.436 [Timer-2] INFO  com.loadbalance.LoadBalancer - 1 CPU 21.76076923076923
+19:03:45.438 [Timer-3] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.02
+19:03:45.438 [Timer-4] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.02
+19:03:45.440 [Timer-5] INFO  com.loadbalance.LoadBalancer - 1 CPU 21.76076923076923
+19:03:45.445 [Timer-4] INFO  com.loadbalance.LoadBalancer - 2 CPU 0.52
+19:03:45.447 [Timer-2] INFO  com.loadbalance.LoadBalancer - 2 CPU 21.76076923076923
+19:03:45.449 [Timer-5] INFO  com.loadbalance.LoadBalancer - 2 CPU 21.76076923076923
+19:03:45.452 [Timer-3] INFO  com.loadbalance.LoadBalancer - 2 CPU 0.52
+19:03:45.459 [Timer-4] INFO  com.loadbalance.LoadBalancer - 3 CPU 0.52
+19:03:45.459 [Timer-2] INFO  com.loadbalance.LoadBalancer - 3 CPU 21.76076923076923
+19:03:45.461 [Timer-5] INFO  com.loadbalance.LoadBalancer - 3 CPU 21.76076923076923
+19:03:45.465 [Timer-3] INFO  com.loadbalance.LoadBalancer - 3 CPU 0.52
+19:03:45.471 [Timer-5] INFO  com.loadbalance.LoadBalancer - 4 CPU 21.76076923076923
+19:03:45.473 [Timer-4] INFO  com.loadbalance.LoadBalancer - 4 CPU 0.52
+19:03:45.474 [Timer-2] INFO  com.loadbalance.LoadBalancer - 4 CPU 21.76076923076923
+19:03:45.477 [Timer-3] INFO  com.loadbalance.LoadBalancer - 4 CPU 0.52
+19:03:45.480 [Timer-5] INFO  com.loadbalance.LoadBalancer - 5 CPU 21.76076923076923
+19:03:45.480 [Timer-5] INFO  com.loadbalance.LoadBalancer - AVG CPU 21.76076923076923
+19:03:45.484 [Timer-4] INFO  com.loadbalance.LoadBalancer - 5 CPU 0.04
+19:03:45.484 [Timer-4] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.2733333333333334
+19:03:45.487 [Timer-2] INFO  com.loadbalance.LoadBalancer - 5 CPU 21.76076923076923
+19:03:45.493 [Timer-3] INFO  com.loadbalance.LoadBalancer - 5 CPU 0.04
+19:03:45.493 [Timer-3] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.2733333333333334
+19:03:45.498 [Timer-2] INFO  com.loadbalance.LoadBalancer - 6 CPU 21.76076923076923
+19:03:45.511 [Timer-2] INFO  com.loadbalance.LoadBalancer - 7 CPU 21.76076923076923
+19:03:45.511 [Timer-2] INFO  com.loadbalance.LoadBalancer - AVG CPU 21.76076923076923
+19:04:45.427 [Timer-3] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.02
+19:04:45.428 [Timer-2] INFO  com.loadbalance.LoadBalancer - 0 CPU 4.503846153846154
+19:04:45.428 [Timer-4] INFO  com.loadbalance.LoadBalancer - 0 CPU 0.02
+19:04:45.436 [Timer-5] INFO  com.loadbalance.LoadBalancer - 0 CPU 4.503846153846154
+19:04:45.438 [Timer-2] INFO  com.loadbalance.LoadBalancer - 1 CPU 4.503846153846154
+19:04:45.438 [Timer-3] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.02
+19:04:45.440 [Timer-4] INFO  com.loadbalance.LoadBalancer - 1 CPU 0.02
+19:04:45.445 [Timer-5] INFO  com.loadbalance.LoadBalancer - 1 CPU 4.503846153846154
+19:04:45.450 [Timer-2] INFO  com.loadbalance.LoadBalancer - 2 CPU 4.503846153846154
+19:04:45.453 [Timer-5] INFO  com.loadbalance.LoadBalancer - 2 CPU 4.503846153846154
+19:04:45.453 [Timer-3] INFO  com.loadbalance.LoadBalancer - 2 CPU 0.04
+19:04:45.454 [Timer-4] INFO  com.loadbalance.LoadBalancer - 2 CPU 0.04
+19:04:45.462 [Timer-2] INFO  com.loadbalance.LoadBalancer - 3 CPU 4.503846153846154
+19:04:45.463 [Timer-5] INFO  com.loadbalance.LoadBalancer - 3 CPU 4.503846153846154
+19:04:45.465 [Timer-3] INFO  com.loadbalance.LoadBalancer - 3 CPU 0.02
+19:04:45.466 [Timer-4] INFO  com.loadbalance.LoadBalancer - 3 CPU 0.02
+19:04:45.474 [Timer-2] INFO  com.loadbalance.LoadBalancer - 4 CPU 4.503846153846154
+19:04:45.477 [Timer-4] INFO  com.loadbalance.LoadBalancer - 4 CPU 0.04
+19:04:45.477 [Timer-5] INFO  com.loadbalance.LoadBalancer - 4 CPU 4.503846153846154
+19:04:45.479 [Timer-3] INFO  com.loadbalance.LoadBalancer - 4 CPU 0.04
+19:04:45.484 [Timer-2] INFO  com.loadbalance.LoadBalancer - 5 CPU 4.503846153846154
+19:04:45.488 [Timer-5] INFO  com.loadbalance.LoadBalancer - 5 CPU 4.503846153846154
+19:04:45.489 [Timer-4] INFO  com.loadbalance.LoadBalancer - 5 CPU 0.04
+19:04:45.489 [Timer-4] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.030000000000000002
+19:04:45.489 [Timer-5] INFO  com.loadbalance.LoadBalancer - AVG CPU 4.503846153846154
+19:04:45.489 [Timer-5] INFO  com.loadbalance.LoadBalancer - Scale in Desired 4 2
+19:04:45.490 [Timer-3] INFO  com.loadbalance.LoadBalancer - 5 CPU 0.04
+19:04:45.490 [Timer-3] INFO  com.loadbalance.LoadBalancer - AVG CPU 0.030000000000000002
+19:04:45.489 [Timer-2] INFO  com.loadbalance.LoadBalancer - 6 CPU 4.503846153846154
+19:04:45.498 [Timer-2] INFO  com.loadbalance.LoadBalancer - 7 CPU 4.503846153846154
+19:04:45.498 [Timer-2] INFO  com.loadbalance.LoadBalancer - AVG CPU 4.503846153846154
+19:04:45.498 [Timer-2] INFO  com.loadbalance.LoadBalancer - Scale in Desired 6 2

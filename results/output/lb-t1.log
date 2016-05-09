@@ -1,0 +1,115 @@
+21:57:11.899 [com.loadbalance.LoadBalancer.main()] INFO  com.loadbalance.LoadBalancer - Cloudwatch Client setup
+21:57:11.931 [com.loadbalance.LoadBalancer.main()] ERROR io.undertow.client - UT005026: Jetty ALPN support not found on boot class path, SPDY client will not be available.
+21:57:11.933 [com.loadbalance.LoadBalancer.main()] ERROR io.undertow.client - UT005026: Jetty ALPN support not found on boot class path, HTTP2 client will not be available.
+21:57:12.628 [com.loadbalance.LoadBalancer.main()] WARN  com.loadbalance.LaunchInstanceHelper - The security group 'AWS_ELASTIC_WEBSERVER' already exists for VPC 'vpc-ac9453c8' (Service: AmazonEC2; Status Code: 400; Error Code: InvalidGroup.Duplicate; Request ID: 1aad3cd8-3643-4bde-9f42-bfc6374067f0)
+21:57:12.686 [com.loadbalance.LoadBalancer.main()] WARN  com.loadbalance.LaunchInstanceHelper - the specified rule "peer: 0.0.0.0/0, TCP, from port: 0, to port: 65535, ALLOW" already exists (Service: AmazonEC2; Status Code: 400; Error Code: InvalidPermission.Duplicate; Request ID: 1f4c97c9-4afa-4ee3-b4fb-c4e2dd0060d3)
+21:57:12.688 [com.loadbalance.LoadBalancer.main()] INFO  com.loadbalance.LoadBalancer - Host http://ec2-52-91-189-205.compute-1.amazonaws.com:8080 added 
+21:57:12.688 [com.loadbalance.LoadBalancer.main()] INFO  com.loadbalance.LoadBalancer - Configured 1 hosts of type t2.micro
+21:57:12.689 [com.loadbalance.LoadBalancer.main()] INFO  com.loadbalance.LoadBalancer - Host http://ec2-52-23-227-194.compute-1.amazonaws.com:8080 added 
+21:57:12.689 [com.loadbalance.LoadBalancer.main()] INFO  com.loadbalance.LoadBalancer - Configured 1 hosts of type r3.large
+21:57:12.689 [com.loadbalance.LoadBalancer.main()] INFO  com.loadbalance.LoadBalancer - Host http://ec2-54-174-152-171.compute-1.amazonaws.com:8080 added 
+21:57:12.689 [com.loadbalance.LoadBalancer.main()] INFO  com.loadbalance.LoadBalancer - Host http://ec2-52-91-188-31.compute-1.amazonaws.com:8080 added 
+21:57:12.689 [com.loadbalance.LoadBalancer.main()] INFO  com.loadbalance.LoadBalancer - Configured 2 hosts of type c4.large
+21:57:12.700 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 0.0
+21:57:12.716 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 0.0
+21:57:12.717 [Timer-1] INFO  com.loadbalance.LoadBalancer - CPU 0.0
+21:57:12.727 [com.loadbalance.LoadBalancer.main()] INFO  org.xnio - XNIO version 3.3.6.Final
+21:57:12.736 [com.loadbalance.LoadBalancer.main()] INFO  org.xnio.nio - XNIO NIO Implementation Version 3.3.1.Final
+21:57:32.693 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 0.0
+21:57:32.701 [Timer-1] INFO  com.loadbalance.LoadBalancer - CPU 0.0
+21:57:32.709 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 25.0
+21:57:52.695 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 0.55
+21:57:52.700 [Timer-1] INFO  com.loadbalance.LoadBalancer - CPU 50.0
+21:57:52.710 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 25.0
+21:58:12.693 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 28.0
+21:58:12.697 [Timer-1] INFO  com.loadbalance.LoadBalancer - CPU 0.0
+21:58:12.714 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 0.0
+21:58:32.696 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 2.55
+21:58:32.699 [Timer-1] INFO  com.loadbalance.LoadBalancer - CPU 0.0
+21:58:32.708 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 0.0
+21:58:52.694 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 2.7
+21:58:52.697 [Timer-1] INFO  com.loadbalance.LoadBalancer - CPU 0.0
+21:58:52.708 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 0.0
+21:59:12.696 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 21.049999999999997
+21:59:12.698 [Timer-1] INFO  com.loadbalance.LoadBalancer - CPU 0.0
+21:59:12.709 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 16.65
+21:59:32.695 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 41.85
+21:59:32.695 [Timer-0] INFO  com.loadbalance.LoadBalancer - Added host ec2-54-175-179-18.compute-1.amazonaws.com
+21:59:32.695 [Timer-0] INFO  com.loadbalance.LoadBalancer - Added host ec2-52-91-162-163.compute-1.amazonaws.com
+21:59:32.695 [Timer-0] INFO  com.loadbalance.LoadBalancer - Added host ec2-54-175-202-181.compute-1.amazonaws.com
+21:59:32.695 [Timer-0] INFO  com.loadbalance.LoadBalancer - Added host ec2-54-175-178-85.compute-1.amazonaws.com
+21:59:32.695 [Timer-0] INFO  com.loadbalance.LoadBalancer - Incremented by 4 Current no. 6 CPU 41.85
+21:59:57.708 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 5.483333333333333
+22:00:12.708 [Timer-1] INFO  com.loadbalance.LoadBalancer - CPU 16.133333333333336
+22:00:12.717 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 25.0
+22:00:17.702 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 25.049999999999997
+22:00:32.714 [Timer-1] INFO  com.loadbalance.LoadBalancer - CPU 29.650000000000002
+22:00:32.718 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 22.21666666666667
+22:00:37.700 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 38.7
+22:00:37.700 [Timer-0] INFO  com.loadbalance.LoadBalancer - Added host ec2-54-175-196-130.compute-1.amazonaws.com
+22:00:37.701 [Timer-0] INFO  com.loadbalance.LoadBalancer - Added host ec2-54-172-149-183.compute-1.amazonaws.com
+22:00:37.701 [Timer-0] INFO  com.loadbalance.LoadBalancer - Added host ec2-54-175-191-23.compute-1.amazonaws.com
+22:00:37.701 [Timer-0] INFO  com.loadbalance.LoadBalancer - Added host ec2-54-85-8-34.compute-1.amazonaws.com
+22:00:37.701 [Timer-0] INFO  com.loadbalance.LoadBalancer - Incremented by 4 Current no. 10 CPU 38.7
+22:01:02.725 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 15.9
+22:01:12.725 [Timer-1] INFO  com.loadbalance.LoadBalancer - CPU 32.58
+22:01:12.728 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 61.660000000000004
+22:01:22.724 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 41.2
+22:01:22.725 [Timer-0] INFO  com.loadbalance.LoadBalancer - Added host ec2-54-172-21-58.compute-1.amazonaws.com
+22:01:22.725 [Timer-0] INFO  com.loadbalance.LoadBalancer - Added host ec2-54-82-249-171.compute-1.amazonaws.com
+22:01:22.725 [Timer-0] INFO  com.loadbalance.LoadBalancer - Added host ec2-54-175-147-1.compute-1.amazonaws.com
+22:01:22.725 [Timer-0] INFO  com.loadbalance.LoadBalancer - Added host ec2-54-175-190-101.compute-1.amazonaws.com
+22:01:22.725 [Timer-0] INFO  com.loadbalance.LoadBalancer - Incremented by 4 Current no. 14 CPU 41.2
+22:01:47.763 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 19.678571428571427
+22:01:52.725 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 25.942857142857147
+22:01:52.729 [Timer-1] INFO  com.loadbalance.LoadBalancer - CPU 37.30714285714286
+22:02:07.760 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 37.807142857142864
+22:02:07.760 [Timer-0] INFO  com.loadbalance.LoadBalancer - Added host ec2-54-175-70-47.compute-1.amazonaws.com
+22:02:07.760 [Timer-0] INFO  com.loadbalance.LoadBalancer - Added host ec2-54-175-94-136.compute-1.amazonaws.com
+22:02:07.761 [Timer-0] INFO  com.loadbalance.LoadBalancer - Incremented by 2 Current no. 16 CPU 37.807142857142864
+22:02:32.809 [Timer-0] INFO  com.loadbalance.LoadBalancer - CPU 37.462500000000006
+22:02:52.736 [Timer-1] INFO  com.loadbalance.LoadBalancer - CPU 42.6625
+22:02:52.748 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 41.975
+22:03:12.755 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 38.65
+22:03:32.748 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 48.47500000000001
+22:03:52.767 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 38.487500000000004
+22:04:12.756 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 40.6125
+22:04:32.758 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 33.956250000000004
+22:04:52.745 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 29.112500000000008
+22:05:12.750 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 22.9375
+22:05:32.748 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 18.862499999999997
+22:05:52.751 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 14.850000000000001
+22:06:12.767 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 11.3375
+22:06:32.741 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 4.843749999999999
+22:06:32.743 [Timer-2] INFO  com.loadbalance.LoadBalancer - Removed host ec2-54-175-94-136.compute-1.amazonaws.com
+22:06:32.743 [Timer-2] INFO  com.loadbalance.LoadBalancer - Removed host ec2-54-175-70-47.compute-1.amazonaws.com
+22:06:32.743 [Timer-2] INFO  com.loadbalance.LoadBalancer - Decremnted by 2 Current no. 14 CPU 4.843749999999999
+22:06:52.735 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 6.028571428571427
+22:06:52.735 [Timer-2] INFO  com.loadbalance.LoadBalancer - Removed host ec2-54-175-190-101.compute-1.amazonaws.com
+22:06:52.736 [Timer-2] INFO  com.loadbalance.LoadBalancer - Removed host ec2-54-175-147-1.compute-1.amazonaws.com
+22:06:52.736 [Timer-2] INFO  com.loadbalance.LoadBalancer - Decremnted by 2 Current no. 12 CPU 6.028571428571427
+22:07:12.733 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 6.508333333333332
+22:07:12.733 [Timer-2] INFO  com.loadbalance.LoadBalancer - Removed host ec2-54-82-249-171.compute-1.amazonaws.com
+22:07:12.733 [Timer-2] INFO  com.loadbalance.LoadBalancer - Removed host ec2-54-172-21-58.compute-1.amazonaws.com
+22:07:12.733 [Timer-2] INFO  com.loadbalance.LoadBalancer - Decremnted by 2 Current no. 10 CPU 6.508333333333332
+22:07:32.721 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 3.4299999999999997
+22:07:32.721 [Timer-2] INFO  com.loadbalance.LoadBalancer - Removed host ec2-54-85-8-34.compute-1.amazonaws.com
+22:07:32.722 [Timer-2] INFO  com.loadbalance.LoadBalancer - Removed host ec2-54-175-191-23.compute-1.amazonaws.com
+22:07:32.722 [Timer-2] INFO  com.loadbalance.LoadBalancer - Decremnted by 2 Current no. 8 CPU 3.4299999999999997
+22:07:52.724 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 4.875
+22:07:52.724 [Timer-2] INFO  com.loadbalance.LoadBalancer - Removed host ec2-54-172-149-183.compute-1.amazonaws.com
+22:07:52.725 [Timer-2] INFO  com.loadbalance.LoadBalancer - Removed host ec2-54-175-196-130.compute-1.amazonaws.com
+22:07:52.725 [Timer-2] INFO  com.loadbalance.LoadBalancer - Decremnted by 2 Current no. 6 CPU 4.875
+22:08:12.724 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 1.7
+22:08:12.724 [Timer-2] INFO  com.loadbalance.LoadBalancer - Removed host ec2-54-175-178-85.compute-1.amazonaws.com
+22:08:12.724 [Timer-2] INFO  com.loadbalance.LoadBalancer - Removed host ec2-54-175-202-181.compute-1.amazonaws.com
+22:08:12.724 [Timer-2] INFO  com.loadbalance.LoadBalancer - Decremnted by 2 Current no. 4 CPU 1.7
+22:08:32.715 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 3.15
+22:08:32.716 [Timer-2] INFO  com.loadbalance.LoadBalancer - Removed host ec2-52-91-162-163.compute-1.amazonaws.com
+22:08:32.716 [Timer-2] INFO  com.loadbalance.LoadBalancer - Removed host ec2-54-175-179-18.compute-1.amazonaws.com
+22:08:32.716 [Timer-2] INFO  com.loadbalance.LoadBalancer - Decremnted by 2 Current no. 2 CPU 3.15
+22:08:52.711 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 5.05
+22:09:12.712 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 2.6
+22:09:32.712 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 0.0
+22:09:52.712 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 0.0
+22:10:12.712 [Timer-2] INFO  com.loadbalance.LoadBalancer - CPU 0.0
