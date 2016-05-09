@@ -63,11 +63,66 @@ increased(For e.g. launching a C series compute optimized instance may be more c
 <a id="the-approach" class="anchor" href="#the-approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Approach</h3>
 
 <p>The basic architecture of my elastic webserver consists of a load balancer which runs on a EC2 instance in front of a cluster of differant types of servers.<p>
-<p>TODO Architecture Image</p>
-<p>You specify your backend instances connected to the load balancer through a json configuration file <a href="images/config.json">Example file till I create images explaining the schema</a>.
-The Load Balancer is built on top of the Undertow Web Framework[] and implements the Undertow Proxy Client[] interface.</p>
-<p>The request arrives at the load balancer and then the server selection policy determines which cluster to use and which server to use in that cluster and sends the request to 
-that server and the response back to the client. To evaluate the system I created traces containing four types of requests three of them were ported to java from the 15418 assignment 4[] and I created an
+<img src="images/architecture.jpg">
+<p>Each Server Pool has a particular instance type which would be suitable for a 
+particular type of job.The Load Balancer is built on top of the Undertow Web Framework[] and implements the Undertow Proxy Client[] interface.
+The request arrives at the load balancer and then the server selection policy determines which cluster to use and which server to use in that cluster and sends the request to 
+that server and the response back to the client.</p>
+
+<h4>Configuring The System</h4>
+<div >
+<img style="width:50%;display:inline;float:left;margin-right:20px;" src="images/config1.jpg">
+<span>
+<span>For each Server Pool specify the following configuration:-</span>
+<ul>
+<li>
+Instance Type
+</li>
+<li>
+AMI ID(VM Image to load)
+</li>
+<li>
+Minimum number of nodes(We boot up this many nodes in the beginning)
+</li>
+<li>
+Maximum number of nodes(We don’t scale beyond this many nodes)
+</li>
+<li>
+scalingUpPolicy: When to scale out
+</li>
+<li>
+scalingDownPolicy: When to scale in
+</li>
+</ul>
+</span>
+</div >
+<div style="clear:both;padding-top:20px;">
+<img style="width:50%;display:inline;float:left;margin-right:20px;" src="images/config2.jpg">
+<span>
+<span>For each Server Pool specify the scaling policy</span>
+<ul>
+<li>
+Specify the Cloudwatch metric to use.
+</li>
+<li>
+Specify the statistic to use for that metric(eg Average,Min,Max etc..)
+</li>
+<li>
+Specify the time period after which to evaluate the policy
+</li>
+<li>
+Specify the number of instances to launch or terminate
+</li>
+<li>
+Specify the thresholds within which the policy should trigger
+</li>
+<li>
+Specify the time to wait after the VM has been provisioned to give time for OS to boot
+</li>
+</ul>
+</span>
+</div>
+<p style="clear:both;padding-top:20px">To evaluate the system I created traces containing four types of requests three of them were ported to java from the 15418 assignment 4[] and I created an
 additional I/O intensive request.</p>
 <h5>Computationally Expensive Requests</h5>
 <ul>
@@ -257,7 +312,7 @@ systems ability to deal with the latency critical requests when we have I/O and 
 latency critical job.</p>
 </li>
 <li>
-<b>Trace 3:</b> is a mix of along with requests having strict latency requirement.<br>
+<b>Trace 3:</b> is a mix of compute along with requests having strict latency requirement.<br>
 <table>
 <thead>
 <tr><th style="width:30%;">Request Type</th><th>Quantity</th></tr>
@@ -295,18 +350,34 @@ heavy workload.
 
 <h4>Trace 1 Results</h4>
 <div>
+<p>We see that in the homogeneus configuration we can see that when the arrival rate increases we see a very
+big spike in latency for all three types of requests.We see this spike for all three types of requests. 
+The server pool is just not able to keep up with the requests. We can see
+in the heterogeneous configuration without scaling that there is a small spike for both the compute
+tasks(418wisdom and countprimes) however it is substancially lesser than the baseline configuration.
+The reason for this is because the I/O bound requests are not served by the compute pool
+of servers so those dont cause compute requests to backup. Also as the I/O requests are 
+served by a instance with memory big enough to cache all requests all repeating requests are 
+served from memcached. With the scaling configuration we see virtually no spike in latency for 
+all three type of requests. We do observe mini spikes in the begenning and in the middle
+and this coincides with the scaling activity as scaling is not free and instances take time to spin up.</p>
+
 <img src="images/results/trace1/input1.jpg">
 <img src="images/results/trace1/response1.jpg">
-<p>Bla</p>
 <img src="images/results/trace1/input2.jpg">
 <img src="images/results/trace1/response2.jpg">
-<p>Bla</p>
 <img src="images/results/trace1/input3.jpg">
 <img src="images/results/trace1/response3.jpg">
-<p>Bla</p>
+
 </div>
 <h4>Trace 2</h4>
 <div>
+<p>We see that in the homogeneus configuration the tellmeknow requests which can be served under 1ms are being queued up.
+We can see in the heterogeneous configuration with and without scaling these requests are always served instantly
+ and this is because the compute server pool does not handle these requests. Also with scaling we see that there is
+ no spike in latency during peak load however there are a few spikes in between when the scaling activity is going
+ on and the worker is not yet online.</p>
+
 <img src="images/results/trace2/input1.jpg">
 <img src="images/results/trace2/response1.jpg">
 <img src="images/results/trace2/input2.jpg">
@@ -316,6 +387,10 @@ heavy workload.
 </div>
 <h4>Trace 3</h4>
 <div>
+<p>Here we again see that the latency critical requests are getting queued up in the homogeneus
+configuration due to the workers being overwhelmed by compute. Also we can see scaling helping with 
+the spike in request latency when the arrival rate becomes very high.Also the dedicated node to handle
+latency critical but no compute requests ensures that thoserequests never get backed up.</p>
 <img src="images/results/trace3/input1.jpg">
 <img src="images/results/trace3/response1.jpg">
 <img src="images/results/trace3/input2.jpg">
@@ -323,6 +398,11 @@ heavy workload.
 </div>
 <h4>Trace 4</h4>
 <div>
+<p>In this trace also as the three requests arrive at random with the overall arrival rate following a normal distribution
+we see that there is a lot of spikes in latencies throughout the run for the baseline
+homogenous configuration but with a heterogeneous configuration the latency critical requests
+no longer get backed up. Also with elastic scaling we get rid of the spikes due to arrival 
+rate increase but there will be small spikes during scaling activity.</p>
 <img src="images/results/trace4/input1.jpg">
 <img src="images/results/trace4/response1.jpg">
 <img src="images/results/trace4/input2.jpg">
@@ -330,7 +410,19 @@ heavy workload.
 <img src="images/results/trace4/input3.jpg">
 <img src="images/results/trace4/response3.jpg">
 </div>
-
+<h5>Takeaways</h5>
+<p>The above traces help in demonstrating a lot of interesting insights. Some of the key takeaways are:-</p>
+<ul>
+<li>
+Most web workloads are heterogeneous in nature and thus Round Robin scheduling in a homogeneous server pool can cause significant increase in latency
+</li>
+<li>
+With a heterogeneous system we can use the most optimum resource type to serve the request to achieve significantly better performance at the same cost($/hr in this case)
+</li>
+<li>
+Scaling Out is not free as it takes time to detect increase in workload and to spin up servers
+</li>
+</ul>
 <h3>
 <a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References</h3>
 
