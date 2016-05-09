@@ -39,8 +39,8 @@
           <h3>
 <a id="summary" class="anchor" href="#summary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Summary</h3>
 
-<p>I have implemented an Elastic Web Server on Amazon AWS which supports a heterogeneous server configuration and also allows heterogeneous scaling of differant server
-groups independently depending on the type of load. I then evaluated this against baseline round robin work distribution on four differant traces having differant combinations
+<p>I have implemented an Elastic Web Server on Amazon AWS which supports a heterogeneous server configuration and also allows heterogeneous scaling of different server
+groups independently depending on the type of load. I then evaluated this against baseline round robin work distribution on four different traces having different combinations
 of Compute and I/O characteristics and was able to demonstrate the reduced response latency of using this approach on a heterogeneous workload which is the characteristic of 
 most real world web workloads.</p>
 
@@ -48,13 +48,13 @@ most real world web workloads.</p>
 <a id="background" class="anchor" href="#background" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Background</h3>
 
 <p>Amazon offers an existing solution to create an Elastic Webserver on AWS using the Elastic Load Balancer and Auto Scale Group combination which fulfill some of the requirements of an Elastic Webserver like Availability and Elasticity however this approach has several limitations for real workloads which I look to address with my solution. 
-I primarily addressed two limitations in ELB + ASG combination:-</p>
+I primarily addressed two limitations in ELB[1] + ASG[2] combination:-</p>
 
 <ul>
 <li>The ELB uses a naive Round Robin Load Balancing approach to balance incoming requests among various servers however this approach is 
 inefficient when the workload associated with each request is imbalanced(heterogeneous) which is usually the case for real world loads. My system allows you to plug in 
 you custom load balancing scheme depending on your requirements.</li>
-<li>Auto Scale Group only allows Homogeneous scaling out of resources. We can achieve better performance for the same cost if we scale out []ly utilizing the knowledge of the type of workload which has 
+<li>Auto Scale Group only allows Homogeneous scaling out of resources. We can achieve better performance for the same cost if we scale out by utilizing the knowledge of the type of workload which has 
 increased(For e.g. launching a C series compute optimized instance may be more cost effective than launching M series instances).</li>
 </ul>
 <p>This allowed me to get lower latencies at the same AWS cost/hr of running the server.</p>
@@ -62,10 +62,10 @@ increased(For e.g. launching a C series compute optimized instance may be more c
 <h3>
 <a id="the-approach" class="anchor" href="#the-approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Approach</h3>
 
-<p>The basic architecture of my elastic webserver consists of a load balancer which runs on a EC2 instance in front of a cluster of differant types of servers.<p>
+<p>The basic architecture of my elastic webserver consists of a load balancer which runs on a EC2 instance in front of a cluster of different types of servers.<p>
 <img src="images/architecture.jpg">
 <p>Each Server Pool has a particular instance type which would be suitable for a 
-particular type of job.The Load Balancer is built on top of the Undertow Web Framework[] and implements the Undertow Proxy Client[] interface.
+particular type of job.The Load Balancer is built on top of the Undertow Web Framework[3] and implements the Undertow Proxy Client[4] interface.
 The request arrives at the load balancer and then the server selection policy determines which cluster to use and which server to use in that cluster and sends the request to 
 that server and the response back to the client.</p>
 
@@ -142,15 +142,15 @@ there is a very strict response latency requirement for tellmenow requests. Tell
 </ul>
 <h5>I/O Intensive Requests</h5>
 <ul>
-<li><b>memorykiller:</b>This request takes a image or video file name as input. If the requested resource is found in the inmemory local memcached[] then it is
+<li><b>memorykiller:</b>This request takes a image or video file name as input. If the requested resource is found in the inmemory local memcached[5] then it is
 loaded from memory otherwise the resource is read from disk.The request is served much faster if we get a cache hit. There is no CPU requirements apart from that
-required by memcached service to fetch the resource. This request simulates the real world case of serving static resources.</li>
+required by memcached service to fetch the resource. This request simulates the real world case of serving static resources.The data can be found <a href="http://15418.s3-website-us-east-1.amazonaws.com/memorykiller/">here</a></li>
 </ul>
 
 <h3>
 <a id="resources" class="anchor" href="#resources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Results</h3>
 <h4>System Configurations</h4>
-<p>Given below are the three configurations that are compaired. For all three configurations needed to satisfy the normalized
+<p>Given below are the three configurations that are compared. For all three configurations needed to satisfy the normalized
 on demand running cost for Server + Load Balancer needed to be under 1.6$/hr on AWS. This is calculated as the average number of seconds run 
 by all instances normalized to 1hr for each trace. For all the tests using my Load Balancer the Load Balancer was run on a C4.large instance.</p>
 <ul>
@@ -277,7 +277,7 @@ and degraded performance thus I went with vertical scaling by using a memory opt
 <p><b>t2.micro:</b>For tellmeknow requests a single of this type of instance is sufficient.</p>
 </ul>
 <h4>Trace Characteristics</h4>
-<p>To evaluate the system I created four differant traces having differant characteristics:-</p>
+<p>To evaluate the system I created four different traces having different characteristics:-</p>
 <ul>
 <li>
 <b>Trace 1:</b> is a mix of I/O and compute.<br>
@@ -294,7 +294,7 @@ and degraded performance thus I went with vertical scaling by using a memory opt
 <br>
 <p>Both 418wisdom and Computeprimes arrive based on a normal distribution of the number of requests for 12 minute period. 
 The memory killer requests arrive in two batches of normal distributions over a period of 6 minutes each. A lot of these requests
-are repeated more than once accross the batches so there is oppertunity for caching. Also 5/6 of the total requests are image reqeusts(2-3 MB) read
+are repeated more than once across the batches so there is opportunity for caching. Also 5/6 of the total requests are image requests(2-3 MB) read
 from disk in worst case whereas the other remaining 1/6th are video file requests of 20MB.</p>
 </li>
 <li>
@@ -312,7 +312,7 @@ from disk in worst case whereas the other remaining 1/6th are video file request
 <br>
 <p>Both tellmenow and Computeprimes arrive based on a normal distribution of the number of requests for 13 minute period. 
 The memory killer requests arrive in two batches of normal distributions over a period of 6.5 minutes each. A lot of these requests
-are repeated more than once accross the batches so there is oppertunity for caching. Also 5/6 of the total requests are image reqeusts(2-3 MB) read
+are repeated more than once across the batches so there is opportunity for caching. Also 5/6 of the total requests are image requests(2-3 MB) read
 from disk in worst case whereas the other remaining 1/6th are video file requests of 20MB. The idea of this trace is to measure the 
 systems ability to deal with the latency critical requests when we have I/O and compute bound jobs that could potentially affect response times of this
 latency critical job.</p>
@@ -356,11 +356,11 @@ heavy workload.
 
 <h4>Trace 1 Results</h4>
 <div>
-<p>We see that in the homogeneus configuration we can see that when the arrival rate increases we see a very
+<p>We see that in the homogeneous configuration we can see that when the arrival rate increases we see a very
 big spike in latency for all three types of requests.We see this spike for all three types of requests. 
 The server pool is just not able to keep up with the requests. We can see
 in the heterogeneous configuration without scaling that there is a small spike for both the compute
-tasks(418wisdom and countprimes) however it is substancially lesser than the baseline configuration.
+tasks(418wisdom and countprimes) however it is substantially lesser than the baseline configuration.
 The reason for this is because the I/O bound requests are not served by the compute pool
 of servers so those dont cause compute requests to backup. Also as the I/O requests are 
 served by a instance with memory big enough to cache all requests all repeating requests are 
@@ -378,7 +378,7 @@ and this coincides with the scaling activity as scaling is not free and instance
 </div>
 <h4>Trace 2</h4>
 <div>
-<p>We see that in the homogeneus configuration the tellmeknow requests which can be served under 1ms are being queued up.
+<p>We see that in the homogeneous configuration the tellmeknow requests which can be served under 1ms are being queued up.
 We can see in the heterogeneous configuration with and without scaling these requests are always served instantly
  and this is because the compute server pool does not handle these requests. Also with scaling we see that there is
  no spike in latency during peak load however there are a few spikes in between when the scaling activity is going
@@ -394,7 +394,7 @@ We can see in the heterogeneous configuration with and without scaling these req
 <h4>Trace 3</h4>
 <div>
 <p>Here we again see that the latency critical requests are getting queued up in the homogeneous
-configuration due to the workers being overwhelmed by compute.Even the very few tellmeknow reqeusts cant
+configuration due to the workers being overwhelmed by compute.Even the very few tellmeknow requests cant
 be processed and get backedup. Also we can see scaling helping with the spike in request latency when the 
 arrival rate becomes very high.Also the dedicated node to handle latency critical but no compute requests 
 is critical in ensuring that those requests never get backed up.</p>
@@ -434,8 +434,13 @@ Scaling Out is not free as it takes time to detect increase in workload and to s
 </ul>
 <h3>
 <a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References</h3>
-
-<p>Coming Soon</p>
+<ol>
+<li><a href="https://aws.amazon.com/elasticloadbalancing/">Elastic Load Balancer</a></li>
+<li><a href="https://aws.amazon.com/autoscaling/">Auto Scale Group</a></li>
+<li><a href="http://undertow.io/">Undertow</a></li>
+<li><a href="http://undertow.io/javadoc/1.2.x/io/undertow/server/handlers/proxy/ProxyClient.html">Undertow Proxy Client</a></li>
+<li><a href="https://memcached.org/">Memcached</a></li>
+</ol>
         </section>
 
         <aside id="sidebar">
